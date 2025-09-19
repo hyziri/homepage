@@ -2,6 +2,7 @@ pub mod error;
 pub mod join;
 pub mod layout;
 pub mod page;
+pub mod tools;
 
 pub use self::error::NotFound;
 pub use self::layout::Layout;

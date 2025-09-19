@@ -18,7 +18,7 @@ pub fn Hero() -> Element {
     );
 
     rsx! {
-        section { class: "flex items-center justify-center bg-gradient-to-br from-orange-950 to-amber-800 h-screen pt-[88px] pb-6",
+        section { class: "flex items-center justify-center bg-gradient-to-br from-orange-950 to-amber-800 h-screen pt-[64px] pb-6",
             div { class: "max-w-[1440px] px-6 w-full h-full flex flex-col items-center",
                 div { class: "md:w-3/4 flex flex-col items-center md:items-start md:self-start gap-4 my-auto",
                     div { class: "flex flex-col text-center md:text-left items-center md:items-start gap-2",
