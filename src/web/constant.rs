@@ -12,7 +12,7 @@ pub struct FAQEntry {
 }
 
 // Social Media URLs
-pub const DISCORD_URL: &str = "hhttps://discord.gg/HjaGsBBtFg";
+pub const DISCORD_URL: &str = "https://discord.gg/HjaGsBBtFg";
 pub const GITHUB_URL: &str = "https://github.com/autumn-order";
 
 // Websites
@@ -34,7 +34,7 @@ pub const AUTUMN_ORDER_CORP_INFO: CorpCardData = CorpCardData {
 pub const FAQ: &[FAQEntry] = &[
     FAQEntry {
         question: "What is Autumn's main focus?",
-        answer: "Our primary focus is newer players & helping them grow, outside of that we focus on PvP with a mix of industry & PvE on the side.",
+        answer: "Our primary focus is newer players & helping them grow, outside of that we focus on PvP with a mix of industry & PvE.",
     },
     FAQEntry {
         question: "What is Autumn's end goal?",
@@ -46,7 +46,7 @@ pub const FAQ: &[FAQEntry] = &[
     },
     FAQEntry {
         question: "Where is Autumn located?",
-        answer: "Our nullsec corporation, The Order of Autumn, is located in the region of Pure Blind. Our highsec corporation, Autumn Highsec Division, is located out of Torrinos in the region of Lonetrek."
+        answer: "The Order of Autumn is located within our alliance Black Rose's space in the region of Delve along with our coalition, Phoenix Coalition."
     },
     FAQEntry {
         question: "What do you use for voice chat?",
@@ -60,11 +60,6 @@ pub const FAQ: &[FAQEntry] = &[
         question: "Do I need a microphone to join?",
         answer: "No, you do not need a microphone to join. However, we do recommend having one to participate in voice comms."
     },
-    FAQEntry {
-        question: "How does Autumn Highsec Division compare to The Order of Autumn?",
-        answer: "Autumn Highsec Division is a lot more self-paced, you have access to our community and resources to grow and is intended to ultimately be a starting point before nullsec. The Order of Autumn is a lot more community driven as in nullsec space you must work together to keep your space secure & keep your market churning."
-    }
-
 ];
 
 pub static EVE_LEGAL_STATEMENT: &str = "EVE Online and the EVE logo are the registered trademarks of CCP hf. All rights are reserved worldwide. All other trademarks are the property of their respective owners. EVE Online, the EVE logo, EVE and all associated logos and designs are the intellectual property of CCP hf. All artwork, screenshots, characters, vehicles, storylines, world facts or other recognizable features of the intellectual property relating to these trademarks are likewise the intellectual property of CCP hf. CCP hf. has granted permission to Autumn to use EVE Online and all associated logos and designs for promotional and information purposes on its website but does not endorse, and is not in any way affiliated with, Autumn. CCP is in no way responsible for the content on or functioning of this website, nor can it be liable for any damage arising from the use of this website.";

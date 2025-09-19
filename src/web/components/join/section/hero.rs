@@ -34,7 +34,7 @@ pub fn Hero() -> Element {
                             "There are many twists and turns in the beginning of an EVE journey, why waste time learning the hard way when you can learn the right way?"
                         }
                         p { class: "text-white text-xs md:text-base",
-                            "Begin your journey in nullsec with The Order of Autumn, a corporation part of Black Rose alliance & Phoenix Coalition, or in highsec with Autumn Highsec Division."
+                            "Begin your journey in nullsec with The Order of Autumn, a corporation part of Black Rose alliance & Phoenix Coalition"
                         }
                     }
                     ul { class: "flex gap-2",

@@ -66,7 +66,6 @@ pub fn CallToAction() -> Element {
     let mut stats = use_signal(Vec::<StatsDto>::new);
 
     let mut latest_autumn_order_stats = use_signal(StatsDto::default);
-    let mut latest_autumn_highsec_stats = use_signal(StatsDto::default);
 
     if !loaded() {
         let future = use_resource(|| async move { get_stats().await });
@@ -77,16 +76,6 @@ pub fn CallToAction() -> Element {
                     stats_data
                         .iter()
                         .find(|x| x.corporation_id == 98785281)
-                        .into_iter()
-                        .max_by(|a, b| a.date.cmp(&b.date))
-                        .cloned()
-                        .unwrap_or_default(),
-                );
-
-                latest_autumn_highsec_stats.set(
-                    stats_data
-                        .iter()
-                        .find(|x| x.corporation_id == 98784256)
                         .into_iter()
                         .max_by(|a, b| a.date.cmp(&b.date))
                         .cloned()
@@ -112,9 +101,6 @@ pub fn CallToAction() -> Element {
                 }
                 div { class: "w-full py-6 flex justify-center flex-wrap gap-4 md:gap-0",
                     div { class: "w-full xl:w-1/2",
-                        h2 { class: "font-bold text-center text-xl md:text-2xl py-6",
-                            "Join Autumn in Nullsec or Highsec"
-                        }
                         ul { class: "flex flex-wrap justify-center",
                             li { class: "py-2 px-8 md:pr-2 md:py-0",
                                 CorporationCard { corporation: &AUTUMN_ORDER_CORP_INFO, stats: latest_autumn_order_stats() }
