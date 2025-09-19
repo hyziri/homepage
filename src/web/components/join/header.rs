@@ -4,7 +4,10 @@ use dioxus_free_icons::icons::fa_solid_icons::FaBars;
 use dioxus_free_icons::Icon;
 use manganis::Asset;
 
-use crate::web::constant::{APPLICATIONS_URL, DISCORD_URL};
+use crate::web::{
+    constant::{APPLICATIONS_URL, DISCORD_URL},
+    Route,
+};
 
 #[component]
 pub fn JoinHeader() -> Element {
@@ -23,9 +26,9 @@ pub fn JoinHeader() -> Element {
             div { class: "max-w-[1440px] w-full flex items-center justify-between px-6 py-3",
                 ul { class: "flex gap-2 items-center",
                     li {
-                        a {
+                        Link {
                             class: "btn btn-ghost flex gap-2 items-center font-bold text-2xl",
-                            href: "/",
+                            to: Route::Home {  },
                             img {
                                 class: "w-12 h-12",
                                 alt: "Autumn Logo",

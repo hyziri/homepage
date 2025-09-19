@@ -13,6 +13,6 @@ pub enum Route {
         #[route("/:..segments")]
         NotFound { segments: Vec<String> },
     #[end_layout]
-    #[route("/join-autumn")]
+    #[route("/join")]
     JoinAutumn {},
 }

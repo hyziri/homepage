@@ -3,6 +3,7 @@ use dioxus_free_icons::icons::{fa_brands_icons::FaDiscord, fa_solid_icons::FaBar
 use dioxus_free_icons::Icon;
 
 use crate::web::constant::DISCORD_URL;
+use crate::web::Route;
 
 #[derive(PartialEq, Clone, Props)]
 pub struct HeaderLink {
@@ -22,23 +23,14 @@ pub fn Header() -> Element {
             })
     );
 
-    let links: Vec<HeaderLink> = vec![
-        HeaderLink {
-            text: "Wiki",
-            href: "https://wiki.autumn-order.com",
-        },
-        HeaderLink {
-            text: "Roadmap",
-            href: "https://trello.com/b/2kdvKXnu/autumn-roadmap",
-        },
-    ];
+    let links: Vec<HeaderLink> = vec![];
 
     rsx! {
         header { class: "fixed w-full flex justify-center bg-base-100 z-20 border-b border-base-200",
             div { class: "max-w-[1440px] w-full flex items-center justify-between px-6 py-3",
-                a {
+                Link {
                     class: "btn btn-ghost flex gap-2 items-center font-bold text-2xl",
-                    href: "/",
+                    to: Route::Home {  },
                     img {
                         class: "w-12 h-12",
                         alt: "Autumn Logo",
@@ -56,14 +48,14 @@ pub fn Header() -> Element {
                 div {
                     ul { class: "hidden md:flex gap-2",
                         li {
-                            a { class: "btn btn-outline", href: DISCORD_URL,
+                            a {  class: "btn btn-outline", href: DISCORD_URL,
                                 Icon { width: 24, height: 24, icon: FaDiscord }
                                 "Autumn Discord"
                             }
                         }
                         li {
-                            a {
-                                href: "/join-autumn",
+                            Link {
+                                to: Route::JoinAutumn {  },
                                 class: "btn px-2 md:px-4 btn-primary",
                                 "Join Autumn"
                             }
@@ -88,7 +80,7 @@ pub fn Header() -> Element {
                                 a { href: DISCORD_URL, "Autumn Discord" }
                             }
                             li {
-                                a { href: "/join-autumn", "Join Autumn" }
+                                Link { to: Route::JoinAutumn {  }, "Join Autumn" }
                             }
                         }
                     }

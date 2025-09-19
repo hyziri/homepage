@@ -3,7 +3,10 @@ use dioxus_free_icons::icons::fa_brands_icons::FaDiscord;
 use dioxus_free_icons::Icon;
 use manganis::Asset;
 
-use crate::web::constant::{BLACK_ROSE_WEBSITE_URL, DISCORD_URL};
+use crate::web::{
+    constant::{BLACK_ROSE_WEBSITE_URL, DISCORD_URL},
+    Route,
+};
 
 #[component]
 pub fn Hero() -> Element {
@@ -51,8 +54,8 @@ pub fn Hero() -> Element {
                             }
                         }
                         li {
-                            a {
-                                href: "/join-autumn",
+                            Link {
+                                to: Route::JoinAutumn {  },
                                 class: "btn btn-primary px-2 md:px-4 btn",
                                 "Join Autumn"
                             }
