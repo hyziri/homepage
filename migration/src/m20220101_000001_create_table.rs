@@ -13,8 +13,8 @@ impl MigrationTrait for Migration {
                     .table(Stats::Table)
                     .if_not_exists()
                     .col(pk_auto(Stats::Id))
-                    .col(integer(Stats::CorporationId).not_null())
-                    .col(integer(Stats::MemberCount).not_null().default(0))
+                    .col(big_integer(Stats::CorporationId).not_null())
+                    .col(big_integer(Stats::MemberCount).not_null().default(0))
                     .col(timestamp(Stats::Date).not_null().default(Utc::now()))
                     .to_owned(),
             )

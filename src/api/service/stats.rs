@@ -7,7 +7,7 @@ use crate::api::data::stats::StatsRepository;
 pub async fn update_corporation_stats(
     db: &DatabaseConnection,
     esi_client: &eve_esi::Client,
-    corporation_ids: &[i32],
+    corporation_ids: &[i64],
 ) {
     let stats_repository = StatsRepository::new(db);
 
@@ -37,7 +37,11 @@ pub async fn update_corporation_stats(
             }
         }
 
-        let corporation = match esi_client.get_corporation(*corporation_id).await {
+        let corporation = match esi_client
+            .corporation()
+            .get_corporation_information(*corporation_id)
+            .await
+        {
             Ok(corporation) => corporation,
             Err(error) => {
                 warn!(

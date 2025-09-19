@@ -1,12 +1,8 @@
 use dioxus::prelude::*;
-use dioxus_free_icons::icons::fa_brands_icons::{
-    FaBluesky, FaDiscord, FaGithub, FaReddit, FaSoundcloud, FaTwitch, FaYoutube,
-};
+use dioxus_free_icons::icons::fa_brands_icons::{FaDiscord, FaGithub};
 use dioxus_free_icons::Icon;
 
-use crate::web::constant::{
-    BLUESKY_URL, DISCORD_URL, GITHUB_URL, REDDIT_URL, SOUNDCLOUD_URL, TWITCH_URL, YOUTUBE_URL,
-};
+use crate::web::constant::{DISCORD_URL, GITHUB_URL};
 
 pub struct FooterSection {
     pub title: &'static str,
@@ -93,38 +89,8 @@ pub fn Footer() -> Element {
                         }
                     }
                     li {
-                        a { href: YOUTUBE_URL, class: "footer-media-link hover:bg-[#FF0000]",
-                            Icon { width: 24, height: 24, icon: FaYoutube }
-
-                        }
-                    }
-                    li {
-                        a { href: TWITCH_URL, class: "footer-media-link hover:bg-[#9146FF]",
-                            Icon { width: 24, height: 24, icon: FaTwitch }
-
-                        }
-                    }
-                    li {
-                        a { href: BLUESKY_URL, class: "footer-media-link hover:bg-[#1D9BF0]",
-                            Icon { width: 24, height: 24, icon: FaBluesky }
-
-                        }
-                    }
-                    li {
-                        a { href: REDDIT_URL, class: "footer-media-link hover:bg-[#FF4500]",
-                            Icon { width: 24, height: 24, icon: FaReddit }
-
-                        }
-                    }
-                    li {
                         a { href: GITHUB_URL, class: "footer-media-link hover:bg-[#000000]",
                             Icon { width: 24, height: 24, icon: FaGithub }
-
-                        }
-                    }
-                    li {
-                        a { href: SOUNDCLOUD_URL, class: "footer-media-link hover:bg-[#F26F23]",
-                            Icon { width: 24, height: 24, icon: FaSoundcloud }
 
                         }
                     }

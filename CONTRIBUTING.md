@@ -14,12 +14,12 @@ Enable rust-analyzer feature `"server"` for your code editor to include backend 
 ### Install Dependencies
 
 - Install Rust: <https://rustup.rs/>
-- Install nodejs: <https://nodejs.org/en>
+- Install bun: <https://bun.sh/>
 
 Install dioxus-cli
 
 ```bash
-cargo install dioxus-cli@0.6.0-alpha.5
+cargo install dioxus-cli@0.6.3
 ```
 Install sea-orm-cli
 
@@ -30,7 +30,7 @@ cargo install sea-orm-cli
 Install nodejs dependencies (DaisyUi) with
 
 ```bash
-npm i
+bun i
 ```
 
 ### Run the Application
@@ -39,7 +39,7 @@ npm i
 2. Run the application using these commands in 2 separate terminals
 
 ```bash
-npx tailwindcss -i ./input.css -o ./assets/tailwind.css --watch
+bunx @tailwindcss/cli -i ./input.css -o ./assets/tailwind.css --watch
 ```
 
 ```bash

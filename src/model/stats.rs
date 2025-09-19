@@ -3,8 +3,8 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Clone, PartialEq)]
 pub struct StatsDto {
-    pub corporation_id: i32,
-    pub member_count: i32,
+    pub corporation_id: i64,
+    pub member_count: i64,
     pub date: DateTime<Utc>,
 }
 

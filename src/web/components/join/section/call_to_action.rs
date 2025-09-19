@@ -7,10 +7,7 @@ use dioxus_free_icons::{
 use crate::{
     api::controller::stats::get_stats,
     model::stats::StatsDto,
-    web::constant::{
-        CorpCardData, APPLICATIONS_URL, AUTUMN_HIGHSEC_CORP_INFO, AUTUMN_ORDER_CORP_INFO,
-        DISCORD_URL,
-    },
+    web::constant::{CorpCardData, APPLICATIONS_URL, AUTUMN_ORDER_CORP_INFO, DISCORD_URL},
 };
 
 #[component]
@@ -121,9 +118,6 @@ pub fn CallToAction() -> Element {
                         ul { class: "flex flex-wrap justify-center",
                             li { class: "py-2 px-8 md:pr-2 md:py-0",
                                 CorporationCard { corporation: &AUTUMN_ORDER_CORP_INFO, stats: latest_autumn_order_stats() }
-                            }
-                            li { class: "py-2 px-8 md:pl-2 md:py-0",
-                                CorporationCard { corporation: &AUTUMN_HIGHSEC_CORP_INFO, stats: latest_autumn_highsec_stats() }
                             }
                         }
                     }

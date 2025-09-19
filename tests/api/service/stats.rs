@@ -2,7 +2,8 @@ use autumn_homepage::api::constant::APP_VERSION_INFO;
 use autumn_homepage::api::data::stats::StatsRepository;
 use autumn_homepage::api::service::stats::update_corporation_stats;
 
-use dotenv::dotenv;
+use dotenvy::dotenv;
+use eve_esi::ConfigBuilder;
 use mockito::{Mock, ServerGuard};
 use sea_orm::{ConnectionTrait, Database, DbBackend, Schema};
 
@@ -31,7 +32,6 @@ async fn test_update_corporation_stats() {
     .unwrap();
 
     let mut mock_server = mockito::Server::new_async().await;
-    let mock_server_url = mock_server.url();
 
     let mock1_body = r#"
     {
@@ -91,9 +91,16 @@ async fn test_update_corporation_stats() {
         std::env::var("ESI_CONTACT_EMAIL").expect("ESI_CONTACT_EMAIL is not set in .env");
     let user_agent = format!("{} ({})", APP_VERSION_INFO, esi_contact_email);
 
-    let mut esi_client = eve_esi::Client::new(&user_agent);
+    let esi_config = ConfigBuilder::new()
+        .esi_url(&mock_server.url())
+        .build()
+        .expect("Failed to build ESI client config");
 
-    esi_client.esi_url = mock_server_url.to_string();
+    let esi_client = eve_esi::Client::builder()
+        .user_agent(&user_agent)
+        .config(esi_config)
+        .build()
+        .expect("Failed to build ESI client");
 
     // Test error handling for corporation not found when using id 99999999
     // update_corporation_stats is supposed to skip any corporation request that returns a 404

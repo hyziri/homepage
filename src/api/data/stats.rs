@@ -16,8 +16,8 @@ impl<'a> StatsRepository<'a> {
 
     pub async fn create(
         &self,
-        corporation_id: i32,
-        member_count: i32,
+        corporation_id: i64,
+        member_count: i64,
     ) -> Result<Model, sea_orm::DbErr> {
         ActiveModel {
             corporation_id: ActiveValue::set(corporation_id),

@@ -13,12 +13,7 @@ pub struct FAQEntry {
 
 // Social Media URLs
 pub const DISCORD_URL: &str = "https://discord.gg/WvA8Vb9C7D";
-pub const YOUTUBE_URL: &str = "https://www.youtube.com/@autumn-order";
-pub const TWITCH_URL: &str = "https://www.twitch.tv/autumnorder";
-pub const BLUESKY_URL: &str = "https://bsky.app/profile/autumn-order.com";
-pub const REDDIT_URL: &str = "https://www.reddit.com/r/autumnorder";
 pub const GITHUB_URL: &str = "https://github.com/autumn-order";
-pub const SOUNDCLOUD_URL: &str = "https://soundcloud.com/autumn-order";
 
 // Websites
 
@@ -34,13 +29,6 @@ pub const AUTUMN_ORDER_CORP_INFO: CorpCardData = CorpCardData {
     corporation_id: 98785281,
     location: "Nullsec",
     cta_text: "Begin Your Journey in Nullsec",
-};
-
-pub const AUTUMN_HIGHSEC_CORP_INFO: CorpCardData = CorpCardData {
-    name: "Autumn Highsec Division",
-    corporation_id: 98784256,
-    location: "Highsec",
-    cta_text: "Begin Your Journey in Highsec",
 };
 
 pub const FAQ: &[FAQEntry] = &[

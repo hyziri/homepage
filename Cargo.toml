@@ -11,42 +11,41 @@ members = [".", "migration", "entity"]
 
 [dependencies]
 # === Default ===
-dioxus = { version = "0.6.0-rc.0", features = ["fullstack", "router"] }
-dioxus-logger = "0.5.1"
-dioxus-document = { version = "0.6.0-rc.0" }
-# Using fork until pull request https://github.com/dioxus-community/dioxus-free-icons/pull/61 is merged for Bluesky icon
-dioxus-free-icons = { git = "https://github.com/hyziri/dioxus-free-icons.git", branch = "feat/dioxus-0.6", features = [
+dioxus = { version = "0.6.3", features = ["fullstack", "router"] }
+dioxus-logger = "0.6.2"
+dioxus-document = { version = "0.6.3" }
+dioxus-free-icons = { version = "0.9.0", features = [
     "font-awesome-brands",
     "font-awesome-solid",
 ] }
-manganis = "0.6.0-rc.0"
+manganis = "0.6.2"
 
 # 3rd Party crates
-serde = { version = "1.0.197", features = ["derive"] }
-chrono = { version = "0.4.38", features = ["serde"] }
+serde = { version = "1.0.225", features = ["derive"] }
+chrono = { version = "0.4.42", features = ["serde"] }
 
 # === Server ===
-dioxus-cli-config = { version = "0.6.0-rc.0", optional = true }
+dioxus-cli-config = { version = "0.6.3", optional = true }
 
 ## Workspace
 migration = { path = "migration", optional = true }
 entity = { path = "entity", optional = true }
 
 ## Autumn Crates
-eve_esi = { version = "0.2.5", optional = true }
+eve_esi = { version = "0.4.2", optional = true }
 
 ## 3rd Party Crates
-dotenv = { version = "0.15.0", optional = true }
-tokio = { version = "1.41.1", features = ["macros"], optional = true }
-reqwest = { version = "0.12.9", features = ["json"], optional = true }
-serde_json = { version = "1.0.132", optional = true }
-thiserror = { version = "2.0.1", optional = true }
-mockito = { version = "1.5.0", optional = true }
-log = { version = "0.4.22", optional = true }
-sea-orm = { version = "1.1.1", optional = true }
+dotenvy = { version = "0.15.7", optional = true }
+tokio = { version = "1.47.1", features = ["macros"], optional = true }
+reqwest = { version = "0.12.23", features = ["json"], optional = true }
+serde_json = { version = "1.0.145", optional = true }
+thiserror = { version = "2.0.16", optional = true }
+mockito = { version = "1.7.0", optional = true }
+log = { version = "0.4.28", optional = true }
+sea-orm = { version = "1.1.16", optional = true }
 job_scheduler = { version = "1.2.1", optional = true }
-tokio-cron-scheduler = { version = "0.13.0", optional = true }
-axum = { version = "0.7.7", optional = true }
+tokio-cron-scheduler = { version = "0.14.0", optional = true }
+axum = { version = "0.7.9", optional = true }
 
 [features]
 default = []
@@ -55,7 +54,7 @@ server = [
     "migration",
     "entity",
     "eve_esi",
-    "dotenv",
+    "dotenvy",
     "tokio",
     "reqwest",
     "serde_json",
@@ -69,3 +68,15 @@ server = [
     "dioxus-cli-config",
 ]
 web = ["dioxus/web"]
+
+[profile]
+
+[profile.wasm-dev]
+inherits = "dev"
+opt-level = 1
+
+[profile.server-dev]
+inherits = "dev"
+
+[profile.android-dev]
+inherits = "dev"

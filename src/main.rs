@@ -9,7 +9,7 @@ use dioxus::prelude::*;
 use web::App;
 
 fn main() {
-    #[cfg(feature = "web")]
+    #[cfg(not(feature = "server"))]
     launch(App);
 
     #[cfg(feature = "server")]
@@ -22,7 +22,7 @@ fn main() {
         use sea_orm::{ConnectOptions, Database};
         use tokio_cron_scheduler::JobScheduler;
 
-        dotenv::dotenv().ok();
+        dotenvy::dotenv().ok();
 
         tokio::runtime::Runtime::new()
             .unwrap()
