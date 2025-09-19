@@ -18,7 +18,6 @@ dioxus-free-icons = { version = "0.9.0", features = [
     "font-awesome-brands",
     "font-awesome-solid",
 ] }
-manganis = "0.6.2"
 
 # 3rd Party crates
 serde = { version = "1.0.225", features = ["derive"] }

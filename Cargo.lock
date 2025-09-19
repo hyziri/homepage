@@ -325,7 +325,6 @@ dependencies = [
  "eve_esi",
  "job_scheduler",
  "log",
- "manganis",
  "migration",
  "mockito",
  "reqwest",

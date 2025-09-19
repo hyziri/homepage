@@ -1,11 +1,10 @@
 use super::Route;
 use dioxus::prelude::*;
-use dioxus_document::{Link, Meta};
+use dioxus_document::{Link, Meta, Stylesheet};
 
 #[component]
 pub fn App() -> Element {
-    const FAVICON: Asset = manganis::asset!("/assets/favicon.ico");
-    const AUTUMN_LOGO: Asset = manganis::asset!(
+    const AUTUMN_LOGO: Asset = asset!(
         "/assets/autumn-logo.avif",
         ImageAssetOptions::new()
             .with_avif()
@@ -18,7 +17,7 @@ pub fn App() -> Element {
     rsx! {
         Link {
             rel: "icon",
-            href: FAVICON
+            href: asset!("/assets/favicon.ico")
         }
         Meta {
             name: "og:image",
@@ -27,6 +26,9 @@ pub fn App() -> Element {
         Meta {
             name: "twitter:image",
             content: AUTUMN_LOGO
+        }
+        Stylesheet {
+            href: asset!("/assets/tailwind.css")
         }
         Router::<Route> {}
     }
