@@ -1,4 +1,5 @@
 use dioxus::prelude::*;
+use dioxus_charts::LineChart;
 use dioxus_free_icons::{
     icons::{fa_brands_icons::FaDiscord, fa_solid_icons::FaUsers},
     Icon,
@@ -49,18 +50,6 @@ pub fn CallToAction() -> Element {
         )
     }
 
-    // Implement later when dioxus-charts supports Dioxus 0.6
-    fn _MemberChartSection() -> Element {
-        rsx!(
-            div { class: "w-full flex flex-col items-center xl:w-1/2",
-                h2 { class: "font-bold text-center text-xl md:text-2xl py-6",
-                    "Join Many Others in Taking that First Step"
-                }
-                div { class: "card card-compact h-64 sm:h-96 w-full max-w-[696px] shadow" }
-            }
-        )
-    }
-
     let mut stats = use_signal(Vec::<StatsDto>::new);
     let mut autumn_order_stats = use_signal(StatsDto::default);
 
@@ -92,8 +81,30 @@ pub fn CallToAction() -> Element {
                         "Begin Your Journey as Early as Right Now"
                     }
                 }
+                div { class: "w-full flex flex-col items-center xl:w-1/2",
+                    h2 { class: "font-bold text-center text-xl md:text-2xl py-6",
+                        "Join Many Others in Taking that First Step"
+                    }
+                    div { class: "card card-compact h-64 sm:h-96 w-full max-w-[696px] shadow",
+                        p { class: "text-center pt-4", "Autumn's Member Count" }
+                        LineChart {
+                            padding_top: 30,
+                            padding_left: 50,
+                            padding_right: 100,
+                            padding_bottom: 140,
+                            show_grid_ticks: true,
+                            show_dotted_grid: false,
+                            series: vec![stats.iter().map(|stat| stat.member_count as f32).collect::<Vec<f32>>()],
+                            labels: stats.iter().map(|stat| stat.date.format("%Y-%m-%d").to_string()).collect::<Vec<String>>()
+                        }
+                    }
+                }
                 div { class: "w-full py-6 flex justify-center flex-wrap gap-4 md:gap-0",
+
                     div { class: "w-full xl:w-1/2",
+                        h2 { class: "font-bold text-center text-xl md:text-2xl py-6",
+                            "Join The Order of Autumn in Nullsec"
+                        }
                         ul { class: "flex flex-wrap justify-center",
                             li { class: "py-2 px-8 md:pr-2 md:py-0",
                                 CorporationCard { corporation: &AUTUMN_ORDER_CORP_INFO, stats: autumn_order_stats() }

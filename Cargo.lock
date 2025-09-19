@@ -316,6 +316,7 @@ dependencies = [
  "axum",
  "chrono",
  "dioxus",
+ "dioxus-charts",
  "dioxus-cli-config",
  "dioxus-document",
  "dioxus-free-icons",
@@ -983,6 +984,16 @@ dependencies = [
  "manganis",
  "serde",
  "warnings",
+]
+
+[[package]]
+name = "dioxus-charts"
+version = "0.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3c862cacf3989713716763def8a4b3b1ab366f691cac5bd64187aec7cb27e61f"
+dependencies = [
+ "dioxus",
+ "log",
 ]
 
 [[package]]
