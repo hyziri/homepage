@@ -12,7 +12,7 @@ pub struct FAQEntry {
 }
 
 // Social Media URLs
-pub const DISCORD_URL: &str = "https://discord.gg/WvA8Vb9C7D";
+pub const DISCORD_URL: &str = "hhttps://discord.gg/HjaGsBBtFg";
 pub const GITHUB_URL: &str = "https://github.com/autumn-order";
 
 // Websites
