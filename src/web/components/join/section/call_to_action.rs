@@ -61,35 +61,28 @@ pub fn CallToAction() -> Element {
         )
     }
 
-    let mut loaded = use_signal(|| false);
-
     let mut stats = use_signal(Vec::<StatsDto>::new);
+    let mut autumn_order_stats = use_signal(StatsDto::default);
 
-    let mut latest_autumn_order_stats = use_signal(StatsDto::default);
+    let future = use_resource(|| async move { get_stats().await });
 
-    if !loaded() {
-        let future = use_resource(|| async move { get_stats().await });
+    use_effect(move || match &*future.read_unchecked() {
+        Some(Ok(stats_data)) => {
+            autumn_order_stats.set(
+                stats_data
+                    .iter()
+                    .find(|x| x.corporation_id == 98785281)
+                    .into_iter()
+                    .max_by(|a, b| a.date.cmp(&b.date))
+                    .cloned()
+                    .unwrap_or_default(),
+            );
 
-        match &*future.read_unchecked() {
-            Some(Ok(stats_data)) => {
-                latest_autumn_order_stats.set(
-                    stats_data
-                        .iter()
-                        .find(|x| x.corporation_id == 98785281)
-                        .into_iter()
-                        .max_by(|a, b| a.date.cmp(&b.date))
-                        .cloned()
-                        .unwrap_or_default(),
-                );
-
-                stats.set(stats_data.to_vec());
-
-                loaded.set(true);
-            }
-            Some(Err(_)) => (),
-            None => (),
+            stats.set(stats_data.to_vec());
         }
-    }
+        Some(Err(_)) => (),
+        None => (),
+    });
 
     rsx! {
         section { class: "flex items-center justify-center",
@@ -103,7 +96,7 @@ pub fn CallToAction() -> Element {
                     div { class: "w-full xl:w-1/2",
                         ul { class: "flex flex-wrap justify-center",
                             li { class: "py-2 px-8 md:pr-2 md:py-0",
-                                CorporationCard { corporation: &AUTUMN_ORDER_CORP_INFO, stats: latest_autumn_order_stats() }
+                                CorporationCard { corporation: &AUTUMN_ORDER_CORP_INFO, stats: autumn_order_stats() }
                             }
                         }
                     }
