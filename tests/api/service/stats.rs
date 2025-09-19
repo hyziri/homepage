@@ -67,20 +67,12 @@ async fn test_update_corporation_stats() {
     }
     "#;
 
-    let mock1 = create_mock(
-        &mut mock_server,
-        "/corporations/98785281/?datasource=tranquility",
-        mock1_body,
-    );
+    let mock1 = create_mock(&mut mock_server, "/corporations/98785281", mock1_body);
 
-    let mock2 = create_mock(
-        &mut mock_server,
-        "/corporations/98784256/?datasource=tranquility",
-        mock2_body,
-    );
+    let mock2 = create_mock(&mut mock_server, "/corporations/98784256", mock2_body);
 
     let mock3 = mock_server
-        .mock("GET", "/corporations/99999999/?datasource=tranquility")
+        .mock("GET", "/corporations/99999999")
         .expect(2)
         .with_status(404)
         .with_header("content-type", "application/json")
