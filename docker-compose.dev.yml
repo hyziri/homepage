@@ -1,16 +1,13 @@
+# Development version of docker-compose.yml
+#
+# Starts the containers but on ports directly rather than with traefik labels
+# - Homepage is on port 8080
+# - API is on port 8000
+
 services:
   autumn-homepage:
-    build:
-      context: ./web
-      args:
-        - API_URL=https://${DOMAIN}/api
+    build: ./web
     restart: unless-stopped
-    labels:
-      - traefik.enable=true
-      - traefik.http.routers.web.rule=Host(`${DOMAIN}`) && !PathPrefix(`/api`)
-      - traefik.http.routers.web.entrypoints=websecure
-      - traefik.http.routers.web.tls.certresolver=primary
-      - traefik.http.services.web.loadbalancer.server.port=8080
     healthcheck:
       test:
         [
@@ -25,7 +22,8 @@ services:
       - autumn-homepage-api
     networks:
       - autumn_homepage
-      - traefik
+    ports:
+      - 8080:8080
 
   autumn-homepage-api:
     build: ./api
@@ -33,14 +31,6 @@ services:
     env_file: .env
     environment:
       - DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres/${POSTGRES_DB}
-    labels:
-      - traefik.enable=true
-      - traefik.http.routers.api.rule=Host(`${DOMAIN}`) && PathPrefix(`/api`)
-      - traefik.http.routers.api.entrypoints=websecure
-      - traefik.http.routers.api.tls.certresolver=primary
-      - traefik.http.routers.api.middlewares=strip-api-prefix
-      - traefik.http.middlewares.strip-api-prefix.stripprefix.prefixes=/api
-      - traefik.http.services.api.loadbalancer.server.port=8000
     healthcheck:
       test:
         [
@@ -55,20 +45,19 @@ services:
       - postgres
     networks:
       - autumn_homepage
-      - traefik
+    ports:
+      - 8000:8000
 
   postgres:
     image: postgres:latest
     env_file: .env
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data_dev:/var/lib/postgresql/data
     networks:
       - autumn_homepage
 
 volumes:
-  postgres_data:
+  postgres_data_dev:
 
 networks:
   autumn_homepage:
-  traefik:
-    external: true

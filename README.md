@@ -1,25 +1,27 @@
 # Autumn Homepage
 The homepage for EVE Online corporation [The Order of Autumn](https://zkillboard.com/corporation/98785281/), part of [Black Rose](https://black-rose.space/) alliance & Phoenix Coalition.
 
-This is a fullstack [Rust](https://www.rust-lang.org/) application built using [Dioxus](https://dioxuslabs.com/).
-
-For contributions & development instructions please see [CONTRIBUTING.md](./CONTRIBUTING.md).
+This is a fullstack [Rust](https://www.rust-lang.org/) application built using [Dioxus](https://dioxuslabs.com/) for the frontend and [Axum](https://github.com/tokio-rs/axum) for the backend.
 
 ## Running in Production
-
-Ensure your server has plenty of resources to build the application, since it is written in Rust the application will need to compile first.
-If you are constrained on server resources consider building the application on your local computer first and then pushing the built docker image to the server.
-
-### Docker
-
-Docker is the recommended and easiest approach for running this application in production.
 
 - Install docker for your respective operating system: <https://docs.docker.com/engine/install/>
 
 Running the Application
-1. Copy `.env.example` to `.env` and set the `ESI_CONTACT_EMAIL` variable to your contact email for [ESI](https://esi.evetech.net/) requests.
-2. Run the application using
+1. Copy `.env.example` to `.env` and set `CONTACT_EMAIL`, `DOMAIN`, & `POSTGRES_PASSWORD`
+2. If your server isn't already running a proxy, use the provided traefik proxy with
 
 ```bash
-docker-compose up -d
+docker network create traefik
+docker compose -f docker-compose.traefik.yml up -d
 ```
+
+3. Run the following command to start the application with docker:
+
+```bash
+docker compose up -d
+```
+
+## Development
+
+For development instructions, please see the `web` and `api` READMEs for their respective instructions.

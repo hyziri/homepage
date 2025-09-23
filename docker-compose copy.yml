@@ -1,10 +1,9 @@
 services:
   autumn-homepage:
-    build:
-      context: ./web
-      args:
-        - API_URL=https://${DOMAIN}/api
+    build: ./web
     restart: unless-stopped
+    environment:
+      - API_URL=https://${DOMAIN}/api
     labels:
       - traefik.enable=true
       - traefik.http.routers.web.rule=Host(`${DOMAIN}`) && !PathPrefix(`/api`)
