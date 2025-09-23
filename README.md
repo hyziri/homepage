@@ -22,6 +22,15 @@ docker compose -f docker-compose.traefik.yml up -d
 docker compose up -d
 ```
 
+Note: If you change the domain for any reason, you'll need to rebuild the application with:
+
+```bash
+docker compose up -d --build
+```
+
+The reason why is that the API domain is set for the frontend during compile time rather than run time,
+a quirk of the Dioxus frontend that one day is hopefully changed.
+
 ## Development
 
 For development instructions, please see the `web` and `api` READMEs for their respective instructions.

@@ -1,5 +1,4 @@
 ARG APP_NAME=autumn-homepage
-ARG API_URL
 
 # === Generate Tailwindcss ===
 FROM oven/bun:1.2.22-alpine AS bun_stage
