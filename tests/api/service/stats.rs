@@ -79,9 +79,8 @@ async fn test_update_corporation_stats() {
         .with_body(r#"{"error": "Corporation not found"}"#)
         .create();
 
-    let esi_contact_email =
-        std::env::var("ESI_CONTACT_EMAIL").expect("ESI_CONTACT_EMAIL is not set in .env");
-    let user_agent = format!("{} ({})", APP_VERSION_INFO, esi_contact_email);
+    let contact_email = std::env::var("CONTACT_EMAIL").expect("CONTACT_EMAIL is not set in .env");
+    let user_agent = format!("{} ({})", APP_VERSION_INFO, contact_email);
 
     let esi_config = ConfigBuilder::new()
         .esi_url(&mock_server.url())
