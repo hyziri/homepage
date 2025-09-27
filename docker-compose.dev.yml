@@ -16,18 +16,8 @@ services:
       timeout: 10s
       retries: 3
       start_period: 40s
-    networks:
-      - traefik
-    labels:
-      - traefik.enable=true
-      - traefik.http.routers.web.rule=Host(`${DOMAIN}`) && !PathPrefix(`/api`)
-      - traefik.http.routers.web.entrypoints=websecure
-      - traefik.http.routers.web.tls.certresolver=primary
-      - traefik.http.services.web.loadbalancer.server.port=8080
+    ports:
+      - 8080:8080
 
 volumes:
   autumn-homepage:
-
-networks:
-  traefik:
-    external: true
