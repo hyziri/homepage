@@ -10,9 +10,6 @@ pub mod constant;
 pub mod data;
 
 #[cfg(feature = "server")]
-pub mod service;
-
-#[cfg(feature = "server")]
 pub mod task;
 
 #[cfg(feature = "server")]

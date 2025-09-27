@@ -26,7 +26,17 @@ async fn main() {
 
     dotenvy::dotenv().ok();
 
+    let contact_email = std::env::var("CONTACT_EMAIL").expect("CONTACT_EMAIL is not set in .env");
     let database_url = std::env::var("DATABASE_URL").expect("DATABASE_URL is not set in .env");
+
+    let user_agent = format!(
+        "{}/{} ({}; +{}) ",
+        env!("CARGO_PKG_NAME"),
+        env!("CARGO_PKG_VERSION"),
+        contact_email,
+        env!("CARGO_PKG_REPOSITORY")
+    );
+    let esi_client = eve_esi::Client::new(&user_agent).expect("Failed to build ESI client");
 
     let mut opt = ConnectOptions::new(database_url);
     opt.sqlx_logging(false);
@@ -46,7 +56,7 @@ async fn main() {
     dioxus_logger::init(Level::INFO).expect("failed to init logger");
     info!("Starting server");
 
-    schedule_tasks(&sched, &db).await;
+    schedule_tasks(&sched, &db, &esi_client).await;
 
     sched.start().await.expect("Failed to start scheduler");
 
