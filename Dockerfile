@@ -1,69 +1,70 @@
 ARG APP_NAME=autumn-homepage
 
-# === Compile Rust App ===
-FROM rust:1.82-alpine3.20 AS rust_stage
-ARG APP_NAME
-ENV APP_NAME=${APP_NAME}
+# === Generate Tailwindcss ===
+FROM oven/bun:1.2.22-alpine AS bun_stage
 WORKDIR /app
 
-## Build Dependencies
-RUN apk add --no-cache musl-dev libressl-dev \
-    && rustup default nightly \
-    && rustup target add wasm32-unknown-unknown \
-    && cargo install dioxus-cli@0.6.0-rc.0
+# Build Dependencies
+COPY package.json bun.lock ./
 
+RUN bun i
+
+# Generate CSS
+COPY tailwind.config.ts input.css ./
+COPY src ./src
+
+RUN bunx @tailwindcss/cli -i ./input.css -o ./assets/tailwind.css
+
+# === Compile Rust App ===
+# Use debian bookworm slim because `binstall dioxus-cli` does not support alpine
+FROM rust:1.90-slim AS rust_stage
+WORKDIR /app
+
+# Build Dependencies
+# `pkg-config` required for `cargo build`
+# `libssl-dev` required for `cargo build`
+RUN apt-get update && apt-get install -y \
+    pkg-config \
+    libssl-dev
+
+RUN rustup default stable \
+    && rustup target add wasm32-unknown-unknown \
+    && cargo install cargo-binstall
+
+RUN cargo binstall dioxus-cli@0.6.3
+
+# Build Rust dependencies
 COPY Cargo.toml Cargo.lock ./
 COPY .cargo ./.cargo
 COPY entity ./entity
 COPY migration ./migration
 
 RUN mkdir src && echo "fn main() {}" > src/main.rs \
-    && cargo build --release --features server \
     && dx build --release
 
-## Build Rust application
-COPY Dioxus.toml ./
+# Build Rust application
 COPY assets ./assets
 COPY src ./src
+COPY --from=bun_stage /app/assets/tailwind.css /app/assets/tailwind.css
 
-RUN cargo build --release --features server \
-    && dx build --release
-
-# === Generate Tailwindcss ===
-FROM node:23.2-alpine3.20 AS node_stage
-ARG APP_NAME
-ENV APP_NAME=${APP_NAME}
-WORKDIR /app
-
-## Build Dependencies
-COPY package.json package-lock.json ./
-
-RUN npm i \
-    && npm install -g tailwindcss@3.4.15
-
-## Generate & minify CSS
-COPY tailwind.config.ts input.css ./
-COPY src ./src
-
-RUN npx tailwindcss -i ./input.css -o ./assets/tailwind.css
+RUN dx build --release
 
 # === Run application ===
-FROM alpine:3.20
+FROM debian:bookworm-slim
 ARG APP_NAME
 ENV APP_NAME=${APP_NAME}
 WORKDIR /app
 
-RUN apk add --no-cache ca-certificates curl
+RUN apt-get update && apt-get install -y \
+    pkg-config \
+    libssl-dev
 
-COPY --from=rust_stage /app/target/release/${APP_NAME} /app
-COPY --from=rust_stage /app/target/dx/${APP_NAME}/release/web/public /app/public
-COPY --from=rust_stage /app/src/index.html /app/public/index.html
-COPY --from=node_stage /app/assets/tailwind.css /app/public/assets/tailwind.css
+COPY --from=rust_stage /app/target/dx/${APP_NAME}/release/web/ /app
 
 ENV IP="0.0.0.0"
 ENV PORT=8080
+ENV DATABASE_URL="sqlite://data/db.sqlite?mode=rwc"
 
 EXPOSE 8080
 
-ENV DATABASE_URL="sqlite://data/db.sqlite?mode=rwc"
-CMD ["sh", "-c", "./${APP_NAME}"]
+CMD ["sh", "-c", "./server"]
