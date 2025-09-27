@@ -52,7 +52,7 @@ bun i
 3. Run tailwindcss cli to watch for CSS changes:
 
 ```bash
-bunx @tailwindcss/cli -i ./input.css -o ./assets/tailwind.css --watch
+bunx @tailwindcss/cli -i ./tailwind.css -o ./assets/tailwind.css --watch
 ```
 
 4. In a separate terminal, run the application:

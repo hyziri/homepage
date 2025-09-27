@@ -10,10 +10,10 @@ COPY package.json bun.lock ./
 RUN bun i
 
 # Generate CSS
-COPY tailwind.config.ts input.css ./
+COPY tailwind.config.ts tailwind.css ./
 COPY src ./src
 
-RUN bunx @tailwindcss/cli -i ./input.css -o ./assets/tailwind.css
+RUN bunx @tailwindcss/cli -i ./tailwind.css -o ./assets/tailwind.css
 
 # === Compile Rust App ===
 # Use debian bookworm slim because `binstall dioxus-cli` does not support alpine
