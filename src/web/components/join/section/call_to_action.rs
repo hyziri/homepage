@@ -6,10 +6,19 @@ use dioxus_free_icons::{
 };
 
 use crate::{
-    api::controller::stats::get_stats,
     model::stats::StatsDto,
     web::constant::{CorpCardData, APPLICATIONS_URL, AUTUMN_ORDER_CORP_INFO, DISCORD_URL},
 };
+
+#[cfg(feature = "web")]
+async fn get_stats() -> Result<Vec<StatsDto>, reqwasm::Error> {
+    use reqwasm::http::Request;
+
+    let res = Request::get("/api/stats").send().await?;
+    let stats = res.json().await?;
+
+    Ok(stats)
+}
 
 #[component]
 pub fn CallToAction() -> Element {
@@ -50,28 +59,36 @@ pub fn CallToAction() -> Element {
         )
     }
 
-    let mut stats = use_signal(Vec::<StatsDto>::new);
-    let mut autumn_order_stats = use_signal(StatsDto::default);
+    let stats = use_signal(Vec::<StatsDto>::new);
+    let autumn_order_stats = use_signal(StatsDto::default);
 
-    let future = use_resource(|| async move { get_stats().await });
+    #[cfg(feature = "web")]
+    let mut stats = stats;
+    #[cfg(feature = "web")]
+    let mut autumn_order_stats = autumn_order_stats;
 
-    use_effect(move || match &*future.read_unchecked() {
-        Some(Ok(stats_data)) => {
-            autumn_order_stats.set(
-                stats_data
-                    .iter()
-                    .find(|x| x.corporation_id == 98785281)
-                    .into_iter()
-                    .max_by(|a, b| a.date.cmp(&b.date))
-                    .cloned()
-                    .unwrap_or_default(),
-            );
+    #[cfg(feature = "web")]
+    {
+        let future = use_resource(|| async move { get_stats().await });
 
-            stats.set(stats_data.to_vec());
-        }
-        Some(Err(_)) => (),
-        None => (),
-    });
+        use_effect(move || match &*future.read_unchecked() {
+            Some(Ok(stats_data)) => {
+                autumn_order_stats.set(
+                    stats_data
+                        .iter()
+                        .find(|x| x.corporation_id == 98785281)
+                        .into_iter()
+                        .max_by(|a, b| a.date.cmp(&b.date))
+                        .cloned()
+                        .unwrap_or_default(),
+                );
+
+                stats.set(stats_data.to_vec());
+            }
+            Some(Err(_)) => (),
+            None => (),
+        });
+    }
 
     rsx! {
         section { class: "flex items-center justify-center",

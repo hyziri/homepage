@@ -21,6 +21,9 @@ dioxus-charts = "0.3.1"
 serde = { version = "1.0.227", features = ["derive"] }
 chrono = { version = "0.4.42", features = ["serde"] }
 
+# === Web ===
+reqwasm = { version = "0.5.0", optional = true }
+
 # === Server ===
 migration = { path = "migration", optional = true }
 entity = { path = "entity", optional = true }
@@ -48,6 +51,7 @@ serde_json = "1.0.145"
 
 [features]
 default = []
+web = ["dioxus/web", "reqwasm"]
 server = [
     "dioxus/server",
     "migration",
@@ -64,7 +68,6 @@ server = [
     "tokio-cron-scheduler",
     "eve_esi",
 ]
-web = ["dioxus/web"]
 
 [profile]
 

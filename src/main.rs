@@ -1,16 +1,14 @@
 #![allow(non_snake_case)]
 
-mod api;
 mod model;
 mod web;
 
-use dioxus::prelude::*;
-
-use web::App;
+#[cfg(feature = "server")]
+mod api;
 
 #[cfg(not(feature = "server"))]
 fn main() {
-    dioxus::launch(App);
+    dioxus::launch(web::App);
 }
 
 #[cfg(feature = "server")]
@@ -18,11 +16,13 @@ fn main() {
 async fn main() {
     use api::update::schedule_tasks;
     use axum::routing::*;
-    use axum::Extension;
+    use dioxus::prelude::*;
     use dioxus_logger::tracing::{info, Level};
     use migration::{Migrator, MigratorTrait};
     use sea_orm::{ConnectOptions, Database};
     use tokio_cron_scheduler::JobScheduler;
+
+    use crate::api::router::AppState;
 
     dotenvy::dotenv().ok();
 
@@ -60,9 +60,12 @@ async fn main() {
 
     sched.start().await.expect("Failed to start scheduler");
 
+    let state = AppState { db: db };
+
     let router = Router::new()
-        .serve_dioxus_application(ServeConfigBuilder::default(), App)
-        .layer(Extension(db));
+        .serve_dioxus_application(ServeConfigBuilder::default(), web::App)
+        .nest("/api", api::router::routes())
+        .with_state(state);
 
     let router = router.into_make_service();
     let address = dioxus_cli_config::fullstack_address_or_localhost();

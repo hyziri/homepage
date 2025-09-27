@@ -1,19 +1,16 @@
-use dioxus::prelude::*;
+use axum::extract::State;
+use axum::http::StatusCode;
+use axum::response::IntoResponse;
+use axum::response::Response;
+use axum::Json;
 
-use crate::model::stats::StatsDto;
+use crate::api::router::AppState;
 
-#[server]
-pub async fn get_stats() -> Result<Vec<StatsDto>, ServerFnError> {
-    use crate::api::data::stats::StatsRepository;
-    use sea_orm::DatabaseConnection;
+pub async fn get_stats(State(state): State<AppState>) -> Response {
+    use crate::api::service::stats::get_stats;
 
-    let db: axum::Extension<DatabaseConnection> = extract().await?;
-
-    let stats_repository = StatsRepository::new(&db);
-
-    let stats = stats_repository.get(vec![], 0, 60).await?;
-
-    let stats_dtos: Vec<StatsDto> = stats.into_iter().map(|s| s.into()).collect();
-
-    Ok(stats_dtos)
+    match get_stats(&state.db).await {
+        Ok(stats) => (StatusCode::OK, Json(stats)).into_response(),
+        Err(err) => err.into_response(),
+    }
 }

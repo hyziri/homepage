@@ -63,6 +63,30 @@ dx serve
 
 5. The application can be found at `http://localhost:8080`
 
+### Modifying Server/Web
+
+The backend server (`#[cfg(feature = "web")]`) is compiled in native Rust while the frontend (`#[cfg(feature = "web")]`) contains Rust is compiled to WASM. These are incompatible and cannot be compiled together hence the usage of feature flags to distinguish between what is backend only and what is frontend only code.
+
+You will need to edit your `rust-analyzer` configuration in order to get code warnings on the proper feature flag depending on what you are currently working on:
+
+**Zed Editor Example:**
+
+Modify your `settings.json` in the `~/.config/zed/` directory:
+
+```json
+{
+  "lsp": {
+    "rust-analyzer": {
+      "initialization_options": {
+        "cargo": {
+          "features": ["server"]
+        }
+      }
+    }
+  }
+}
+```
+
 ### Testing Docker
 
 - [Install Docker](https://docs.docker.com/engine/install/)
