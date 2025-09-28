@@ -23,4 +23,4 @@ pub mod service;
 pub mod task;
 
 #[cfg(feature = "server")]
-pub mod update;
+pub mod cron;

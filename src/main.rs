@@ -14,7 +14,7 @@ fn main() {
 #[cfg(feature = "server")]
 #[tokio::main]
 async fn main() {
-    use api::update::schedule_tasks;
+    use api::cron::schedule_tasks;
     use axum::routing::*;
     use dioxus::prelude::*;
     use dioxus_logger::tracing::{info, Level};
