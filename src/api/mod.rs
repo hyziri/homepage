@@ -1,13 +1,20 @@
+#[cfg(feature = "server")]
+pub mod constant;
+
+#[cfg(feature = "server")]
 pub mod controller;
+
+#[cfg(feature = "server")]
+pub mod data;
+
+#[cfg(feature = "server")]
+pub mod error;
 
 #[cfg(feature = "server")]
 pub mod model;
 
 #[cfg(feature = "server")]
-pub mod constant;
-
-#[cfg(feature = "server")]
-pub mod data;
+pub mod router;
 
 #[cfg(feature = "server")]
 pub mod service;
@@ -16,4 +23,4 @@ pub mod service;
 pub mod task;
 
 #[cfg(feature = "server")]
-pub mod update;
+pub mod cron;

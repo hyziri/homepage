@@ -1,7 +1,10 @@
 [package]
 name = "autumn-homepage"
+description = "The homepage for The Order of Autumn, an EVE Online corporation part of Black Rose."
+version = "0.1.0"
 authors = ["hyziri <hyziri@protonmail.com>"]
 edition = "2021"
+repository = "https://github.com/hyziri/homepage"
 
 [workspace]
 members = [".", "migration", "entity"]
@@ -19,14 +22,23 @@ dioxus-charts = "0.3.1"
 serde = { version = "1.0.227", features = ["derive"] }
 chrono = { version = "0.4.42", features = ["serde"] }
 
+# === Web ===
+reqwasm = { version = "0.5.0", optional = true }
+
 # === Server ===
 migration = { path = "migration", optional = true }
 entity = { path = "entity", optional = true }
 
+# Use older version until Dioxus 0.7 release
 axum = { version = "0.7.9", optional = true }
+
 tokio = { version = "1.47.1", features = ["macros"], optional = true }
 sea-orm = { version = "1.1.16", optional = true }
 dioxus-cli-config = { version = "0.6.3", optional = true }
+
+# Use older version until axum is updated to latest version
+utoipa = { version = "4.2.3", features = ["axum_extras", "chrono"], optional = true }
+utoipa-swagger-ui = { version = "7.1.0", features = ["axum"], optional = true }
 
 log = { version = "0.4.28", optional = true }
 thiserror = { version = "2.0.16", optional = true }
@@ -40,21 +52,23 @@ serde_json = "1.0.145"
 
 [features]
 default = []
+web = ["dioxus/web", "reqwasm"]
 server = [
     "dioxus/server",
     "migration",
     "entity",
-    "eve_esi",
-    "dotenvy",
-    "tokio",
-    "thiserror",
-    "log",
-    "sea-orm",
-    "tokio-cron-scheduler",
     "axum",
+    "tokio",
+    "sea-orm",
     "dioxus-cli-config",
+    "utoipa",
+    "utoipa-swagger-ui",
+    "log",
+    "thiserror",
+    "dotenvy",
+    "tokio-cron-scheduler",
+    "eve_esi",
 ]
-web = ["dioxus/web"]
 
 [profile]
 

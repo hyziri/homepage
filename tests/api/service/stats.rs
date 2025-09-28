@@ -1,6 +1,5 @@
-use autumn_homepage::api::constant::APP_VERSION_INFO;
 use autumn_homepage::api::data::stats::StatsRepository;
-use autumn_homepage::api::service::stats::update_corporation_stats;
+use autumn_homepage::api::task::stats::update_corporation_stats;
 
 use dotenvy::dotenv;
 use eve_esi::ConfigBuilder;
@@ -80,7 +79,13 @@ async fn test_update_corporation_stats() {
         .create();
 
     let contact_email = std::env::var("CONTACT_EMAIL").expect("CONTACT_EMAIL is not set in .env");
-    let user_agent = format!("{} ({})", APP_VERSION_INFO, contact_email);
+    let user_agent = format!(
+        "{}/{} ({}; +{}) ",
+        env!("CARGO_PKG_NAME"),
+        env!("CARGO_PKG_VERSION"),
+        contact_email,
+        env!("CARGO_PKG_REPOSITORY")
+    );
 
     let esi_config = ConfigBuilder::new()
         .esi_url(&mock_server.url())
@@ -95,10 +100,10 @@ async fn test_update_corporation_stats() {
 
     // Test error handling for corporation not found when using id 99999999
     // update_corporation_stats is supposed to skip any corporation request that returns a 404
-    let corporation_ids = &[98785281, 98784256, 99999999];
+    let corporation_ids = vec![98785281, 98784256, 99999999];
 
     // Call twice to ensure only 1 entry per corporation is created per day
-    update_corporation_stats(&db, &esi_client, corporation_ids).await;
+    update_corporation_stats(&db, &esi_client, corporation_ids.clone()).await;
     update_corporation_stats(&db, &esi_client, corporation_ids).await;
 
     let stats_repository = StatsRepository::new(&db);
