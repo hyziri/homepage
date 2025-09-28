@@ -2,6 +2,7 @@ use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Clone, PartialEq)]
+#[cfg_attr(feature = "server", derive(utoipa::ToSchema))]
 pub struct StatsDto {
     pub corporation_id: i64,
     pub member_count: i64,

@@ -5,7 +5,7 @@ use axum::{
 };
 use thiserror::Error;
 
-use super::model::api::ErrorDto;
+use crate::model::api::ErrorDto;
 
 #[derive(Error, Debug)]
 pub enum Error {

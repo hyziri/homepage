@@ -15,7 +15,6 @@ fn main() {
 #[tokio::main]
 async fn main() {
     use api::cron::schedule_tasks;
-    use axum::routing::*;
     use dioxus::prelude::*;
     use dioxus_logger::tracing::{info, Level};
     use migration::{Migrator, MigratorTrait};
@@ -62,9 +61,8 @@ async fn main() {
 
     let state = AppState { db: db };
 
-    let router = Router::new()
+    let router = api::router::routes()
         .serve_dioxus_application(ServeConfigBuilder::default(), web::App)
-        .nest("/api", api::router::routes())
         .with_state(state);
 
     let router = router.into_make_service();
