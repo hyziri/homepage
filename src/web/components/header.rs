@@ -23,10 +23,16 @@ pub fn Header() -> Element {
             })
     );
 
-    let links: Vec<HeaderLink> = vec![HeaderLink {
-        text: "Tools",
-        href: "/tools",
-    }];
+    let links: Vec<HeaderLink> = vec![
+        HeaderLink {
+            text: "Guides",
+            href: "/guides",
+        },
+        HeaderLink {
+            text: "Tools",
+            href: "/tools",
+        },
+    ];
 
     rsx! {
         header { class: "fixed w-full flex justify-center bg-base-100 z-20 border-b border-base-200",

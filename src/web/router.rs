@@ -1,5 +1,6 @@
 use dioxus::prelude::*;
 
+use super::routes::guides::{autumn::AutumnGuides, Guides};
 use super::routes::join::JoinAutumn;
 use super::routes::tools::AutumnTools;
 use super::routes::Layout;
@@ -13,6 +14,10 @@ pub enum Route {
         Home {},
         #[route("/:..segments")]
         NotFound { segments: Vec<String> },
+        #[route("/guides")]
+        Guides {},
+        #[route("/guides/autumn")]
+        AutumnGuides {},
         #[route("/tools")]
         AutumnTools {},
     #[end_layout]
