@@ -7,7 +7,7 @@
 use super::model::GuideAuthor;
 
 pub static AUTHOR_HYZIRI: GuideAuthor<'static> = GuideAuthor {
-    character_id: 1,
+    character_id: 2114794365,
     character_name: "Hyziri",
     corporation_id: 1,
     corporation_name: "The Order of Autumn",
