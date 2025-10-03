@@ -2,10 +2,7 @@
 pub struct GuideAuthor<'a> {
     pub character_name: &'a str,
     pub character_id: i64,
-    pub corporation_name: &'a str,
-    pub corporation_id: i64,
-    pub alliance_name: &'a str,
-    pub alliance_id: i64,
+    pub title: &'a str,
 }
 
 #[derive(Clone, Copy, PartialEq)]
