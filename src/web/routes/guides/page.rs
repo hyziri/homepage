@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use document::{Meta, Title};
 
 use crate::web::{
-    components::{guides::model::GuideMeta, Container},
+    components::{guides::model::GuideMeta, Container, Page},
     routes::guides::joining_autumn::JOINING_AUTUMN_GUIDE_META,
 };
 
@@ -14,8 +14,7 @@ pub fn GuidesDirectory() -> Element {
             name: "description",
             content: "Guides by The Order of Autumn"
         }
-        div {
-            class: "min-h-screen pt-[64px]",
+        Page {
             Container {
                 ul {
                     GuideCard {

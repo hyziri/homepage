@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 use document::{Meta, Title};
 
-use crate::web::components::Container;
+use crate::web::components::{Container, Page};
 
 use super::model::GuideMeta;
 
@@ -14,8 +14,7 @@ pub fn Guide(meta: GuideMeta<'static>, children: Element) -> Element {
             name: "description",
             content: meta.description
         }
-        div {
-            class: "min-h-screen pt-[64px]",
+        Page {
             Container {
                 class: "flex",
                 // Main body
@@ -27,9 +26,6 @@ pub fn Guide(meta: GuideMeta<'static>, children: Element) -> Element {
 
                 }
             }
-        }
-        section { class: "flex justify-center min-h-screen pt-[64px]",
-
         }
     }
 }
