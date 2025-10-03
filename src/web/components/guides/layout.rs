@@ -1,6 +1,8 @@
 use dioxus::prelude::*;
 use document::{Meta, Title};
 
+use crate::web::components::Container;
+
 use super::model::GuideMeta;
 
 /// Formats the content of the guide and the author information
@@ -12,8 +14,9 @@ pub fn Guide(meta: GuideMeta<'static>, children: Element) -> Element {
             name: "description",
             content: meta.description
         }
-        section { class: "flex justify-center min-h-screen pt-[64px]",
-            div { class: "max-w-[1440px] p-6 w-full h-full",
+        div {
+            class: "min-h-screen pt-[64px]",
+            Container {
                 class: "flex",
                 // Main body
                 div { class: "w-4/5",
@@ -24,6 +27,9 @@ pub fn Guide(meta: GuideMeta<'static>, children: Element) -> Element {
 
                 }
             }
+        }
+        section { class: "flex justify-center min-h-screen pt-[64px]",
+
         }
     }
 }

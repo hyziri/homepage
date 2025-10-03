@@ -2,7 +2,8 @@ use dioxus::prelude::*;
 use document::{Meta, Title};
 
 use crate::web::{
-    components::guides::model::GuideMeta, routes::guides::joining_autumn::JOINING_AUTUMN_GUIDE_META,
+    components::{guides::model::GuideMeta, Container},
+    routes::guides::joining_autumn::JOINING_AUTUMN_GUIDE_META,
 };
 
 #[component]
@@ -13,8 +14,9 @@ pub fn GuidesDirectory() -> Element {
             name: "description",
             content: "Guides by The Order of Autumn"
         }
-        section { class: "flex justify-center min-h-screen pt-[64px]",
-            div { class: "max-w-[1440px] p-6 w-full h-full",
+        div {
+            class: "min-h-screen pt-[64px]",
+            Container {
                 ul {
                     GuideCard {
                         meta: JOINING_AUTUMN_GUIDE_META,
