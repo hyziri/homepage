@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 
 #[component]
-pub fn Container(class: Option<&'static str>, children: Element) -> Element {
+pub fn Section(class: Option<&'static str>, children: Element) -> Element {
     let class: &str = if let Some(class) = class { class } else { "" };
 
     rsx!(
