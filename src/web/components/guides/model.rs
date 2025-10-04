@@ -12,3 +12,9 @@ pub struct GuideMeta<'a> {
     pub date: &'a str,
     pub author: GuideAuthor<'static>,
 }
+
+#[derive(Clone, PartialEq, Copy)]
+pub struct GuideEntry<'a> {
+    pub meta: GuideMeta<'static>,
+    pub href: &'a str,
+}

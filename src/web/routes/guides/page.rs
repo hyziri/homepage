@@ -2,9 +2,17 @@ use dioxus::prelude::*;
 use document::{Meta, Title};
 
 use crate::web::{
-    components::{guides::model::GuideMeta, Page, Section},
+    components::{
+        guides::model::{GuideEntry, GuideMeta},
+        Page, Section,
+    },
     routes::guides::joining_autumn::JOINING_AUTUMN_GUIDE_META,
 };
+
+pub static GUIDE_ENTRIES: [GuideEntry; 1] = [GuideEntry {
+    meta: JOINING_AUTUMN_GUIDE_META,
+    href: "/guides/joining-autumn",
+}];
 
 #[component]
 pub fn GuidesDirectory() -> Element {
@@ -20,10 +28,12 @@ pub fn GuidesDirectory() -> Element {
                     "Autumn Guides"
                 }
                 ul { class: "flex gap-4",
-                    li {
-                        GuideCard {
-                            meta: JOINING_AUTUMN_GUIDE_META,
-                            href: "/guides/joining-autumn"
+                    for (key , guide) in GUIDE_ENTRIES.iter().enumerate() {
+                        li { key: "{key}",
+                            GuideCard {
+                                meta: guide.meta,
+                                href: guide.href
+                            }
                         }
                     }
                 }
