@@ -1,7 +1,10 @@
 use dioxus::prelude::*;
 use document::{Meta, Title};
 
-use crate::web::components::{guides::model::GuideAuthor, Page, Section};
+use crate::web::components::{
+    guides::{model::GuideAuthor, sidebar::GuideSidebar},
+    Page, Section,
+};
 
 use super::model::GuideMeta;
 
@@ -17,7 +20,10 @@ pub fn Guide(meta: GuideMeta<'static>, children: Element) -> Element {
         Page {
             Section {
                 class: "flex min-h-screen",
-                div { class: "w-4/5",
+                GuideSidebar {  class: "w-1/5",
+
+                }
+                div { class: "w-3/5",
                     {children}
                 }
                 div { class: "w-1/5",
