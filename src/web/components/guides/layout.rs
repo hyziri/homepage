@@ -1,9 +1,13 @@
 use dioxus::prelude::*;
 use document::{Meta, Title};
 
-use crate::web::components::{
-    guides::{model::GuideAuthor, sidebar::GuideSidebar},
-    Page, Section,
+use crate::web::{
+    components::{
+        guides::{model::GuideAuthor, sidebar::GuideSidebar},
+        Page, Section,
+    },
+    model::breadcrumb::Breadcrumb,
+    util::breadcrumb::path_to_breadcrumbs,
 };
 
 use super::model::GuideMeta;
@@ -11,6 +15,10 @@ use super::model::GuideMeta;
 /// Formats the content of the guide and the author information
 #[component]
 pub fn Guide(meta: GuideMeta<'static>, children: Element) -> Element {
+    let path = router().full_route_string();
+
+    let breadcrumbs: Vec<Breadcrumb> = path_to_breadcrumbs(path);
+
     rsx! {
         Title { "{meta.title} | Autumn Guides" }
         Meta {
@@ -24,7 +32,23 @@ pub fn Guide(meta: GuideMeta<'static>, children: Element) -> Element {
 
                 }
                 div { class: "w-3/5",
-                    {children}
+                    div { class: "flex flex-col",
+                        div { class: "breadcrumbs text-sm",
+                            ul {
+                                for (key, crumb) in breadcrumbs.iter().enumerate() {
+                                    li { key: "{key}",
+                                        a {
+                                            href: "{crumb.href}", "{crumb.name}"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        h1 { class: "font-bold text-xl xl:text-2xl", {meta.title} }
+                    }
+                    article {
+                        {children}
+                    }
                 }
                 div { class: "w-1/5",
                     div { class: "sticky top-20 z-10",
