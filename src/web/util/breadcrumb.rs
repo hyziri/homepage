@@ -6,8 +6,14 @@ use crate::web::{model::breadcrumb::Breadcrumb, util::format::format_title};
 /// Output href: `/guides`, `/guides/join-autumn
 /// Output names: `Guides`, `Join Autumn`
 pub fn path_to_breadcrumbs(path: String) -> Vec<Breadcrumb> {
+    // Remove fragment (`#...`) first
+    let without_fragment = match path.find('#') {
+        Some(idx) => &path[..idx],
+        None => &path[..],
+    };
+
     // Remove leading/trailing slashes so split is predictable
-    let trimmed = path.trim_matches('/');
+    let trimmed = without_fragment.trim_matches('/');
 
     if trimmed.is_empty() {
         Vec::new()

@@ -18,3 +18,9 @@ pub struct GuideEntry<'a> {
     pub meta: GuideMeta<'static>,
     pub href: &'a str,
 }
+
+#[derive(Clone, PartialEq, Copy)]
+pub struct GuideOutline<'a> {
+    pub title: &'a str,
+    pub id: &'a str,
+}

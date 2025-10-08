@@ -10,7 +10,7 @@ pub fn GuideSidebar(class: Option<&'static str>) -> Element {
         div { class: "{class}",
             div { class: "sticky top-20 z-10",
                 h2 { class: "font-bold text-lg", "Autumn Guides" }
-                ul { class: "flex flex-col gap-2",
+                ul { class: "flex flex-col gap-1",
                     for (key, guide) in GUIDE_ENTRIES.iter().enumerate() {
                         li { key: "{key}",
                             a { href: guide.href,
