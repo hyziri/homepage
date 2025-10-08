@@ -1,3 +1,4 @@
+use chrono::NaiveDate;
 use dioxus::prelude::*;
 use document::{Meta, Title};
 
@@ -15,6 +16,9 @@ pub fn Guide(meta: GuideMeta<'static>, children: Element) -> Element {
 
     let breadcrumbs: Vec<Breadcrumb> = path_to_breadcrumbs(path);
 
+    let date = NaiveDate::parse_from_str(meta.date, "%Y-%m-%d")?;
+    let formatted_date = date.format("%b %-d, %Y").to_string();
+
     rsx! {
         Title { "{meta.title} | Autumn Guides" }
         Meta {
@@ -24,12 +28,10 @@ pub fn Guide(meta: GuideMeta<'static>, children: Element) -> Element {
         Page {
             Section {
                 class: "flex min-h-screen",
-                GuideSidebar {  class: "w-1/5",
-
-                }
+                GuideSidebar {  class: "w-1/5" }
                 div { class: "w-3/5",
-                    div { class: "flex flex-col",
-                        div { class: "breadcrumbs text-sm",
+                    div { class: "flex flex-col pb-4",
+                        div { class: "breadcrumbs text-sm pb-4",
                             ul {
                                 for (key, crumb) in breadcrumbs.iter().enumerate() {
                                     li { key: "{key}",
@@ -41,6 +43,7 @@ pub fn Guide(meta: GuideMeta<'static>, children: Element) -> Element {
                             }
                         }
                         h1 { class: "font-bold text-xl xl:text-2xl", {meta.title} }
+                        p { {formatted_date} }
                     }
                     article {
                         {children}

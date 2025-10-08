@@ -1,3 +1,4 @@
+use chrono::NaiveDate;
 use dioxus::prelude::*;
 use document::{Meta, Title};
 
@@ -42,6 +43,9 @@ pub fn GuidesDirectory() -> Element {
 
 #[component]
 pub fn GuideCard(meta: GuideMeta<'static>, href: String) -> Element {
+    let date = NaiveDate::parse_from_str(meta.date, "%Y-%m-%d")?;
+    let formatted_date = date.format("%b %-d, %Y").to_string();
+
     rsx! {
         a { href: href,
             div { class: "card card-border bg-base-100 shadow w-full md:w-96",
@@ -53,7 +57,7 @@ pub fn GuideCard(meta: GuideMeta<'static>, href: String) -> Element {
                         {meta.description}
                     }
                     div { class: "flex justify-between items-center pt-8",
-                        p { {meta.date} }
+                        p { {formatted_date} }
                         div { class: "flex items-center self-end gap-1 text-center",
                             div { class: "avatar",
                                 div { class: "w-8 rounded-full",
