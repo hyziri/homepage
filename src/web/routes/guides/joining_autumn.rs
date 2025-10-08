@@ -1,6 +1,9 @@
 use dioxus::prelude::*;
 
-use crate::web::components::guides::{author::AUTHOR_HYZIRI, layout::Guide, model::GuideMeta};
+use crate::web::{
+    components::guides::{author::AUTHOR_HYZIRI, layout::Guide},
+    model::guide::GuideMeta,
+};
 
 pub static JOINING_AUTUMN_GUIDE_META: GuideMeta<'static> = GuideMeta {
     title: "Joining Autumn",

@@ -2,10 +2,8 @@ use dioxus::prelude::*;
 use document::{Meta, Title};
 
 use crate::web::{
-    components::{
-        guides::model::{GuideEntry, GuideMeta},
-        Page, Section,
-    },
+    components::{Page, Section},
+    model::guide::{GuideEntry, GuideMeta},
     routes::guides::joining_autumn::JOINING_AUTUMN_GUIDE_META,
 };
 

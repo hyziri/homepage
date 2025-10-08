@@ -2,15 +2,11 @@ use dioxus::prelude::*;
 use document::{Meta, Title};
 
 use crate::web::{
-    components::{
-        guides::{model::GuideAuthor, sidebar::GuideSidebar},
-        Page, Section,
-    },
+    components::{guides::sidebar::GuideSidebar, Page, Section},
     model::breadcrumb::Breadcrumb,
+    model::guide::{GuideAuthor, GuideMeta},
     util::breadcrumb::path_to_breadcrumbs,
 };
-
-use super::model::GuideMeta;
 
 /// Formats the content of the guide and the author information
 #[component]
