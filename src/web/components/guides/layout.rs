@@ -13,11 +13,7 @@ use crate::web::{
 
 /// Formats the content of the guide and the author information
 #[component]
-pub fn Guide(
-    meta: GuideMeta<'static>,
-    outline: Vec<GuideOutline<'static>>,
-    children: Element,
-) -> Element {
+pub fn Guide(meta: GuideMeta<'static>, outline: Vec<GuideOutline>, children: Element) -> Element {
     let path = router().full_route_string();
 
     let breadcrumbs: Vec<Breadcrumb> = path_to_breadcrumbs(path);
@@ -92,7 +88,7 @@ pub fn GuideAuthorSegment(author: GuideAuthor<'static>) -> Element {
 }
 
 #[component]
-pub fn GuideOutlineSegment(outline: Vec<GuideOutline<'static>>) -> Element {
+pub fn GuideOutlineSegment(outline: Vec<GuideOutline>) -> Element {
     rsx!(
         div { class: "flex flex-col gap-2 w-full",
             p {
@@ -103,7 +99,7 @@ pub fn GuideOutlineSegment(outline: Vec<GuideOutline<'static>>) -> Element {
                 for (key, entry) in outline.iter().enumerate() {
                     li { key: "{key}",
                         a { href: "#{entry.id}", class: "hover:text-primary",
-                            p { {entry.title} }
+                            p { "{entry.title}" }
                         }
                     }
                 }

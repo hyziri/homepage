@@ -19,8 +19,22 @@ pub struct GuideEntry<'a> {
     pub href: &'a str,
 }
 
-#[derive(Clone, PartialEq, Copy)]
-pub struct GuideOutline<'a> {
-    pub title: &'a str,
-    pub id: &'a str,
+#[derive(Clone, PartialEq)]
+pub struct GuideOutline {
+    pub title: String,
+    pub id: String,
+}
+
+impl GuideOutline {
+    /// Creates a new guide outline instance by setting the `id` based upon `title` String
+    ///
+    /// Title is converted from `Section Title` to `section-title` for the id
+    pub fn new(title: &str) -> Self {
+        let id = title.replace(" ", "-").to_lowercase();
+
+        Self {
+            title: title.to_string(),
+            id: id,
+        }
+    }
 }
