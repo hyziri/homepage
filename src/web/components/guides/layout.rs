@@ -48,10 +48,10 @@ pub fn Guide(
                                 }
                             }
                         }
-                        h1 { class: "font-bold text-xl xl:text-2xl", {meta.title} }
+                        h1 { class: "font-bold text-2xl xl:text-4xl", {meta.title} }
                         p { {formatted_date} }
                     }
-                    article { class: "guide-content",
+                    article { class: "guide-content prose",
                         {children}
                     }
                 }

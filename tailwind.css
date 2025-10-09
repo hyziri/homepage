@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 @plugin "daisyui";
 @plugin "daisyui/theme" {
     name: "autumn";
@@ -71,5 +72,5 @@
 
 /* Offset scroll for guide headers to account for website header height */
 .guide-content :is(h1, h2, h3, h4, h5, h6)[id] {
-    scroll-margin-top: 5rem; /* equals Tailwind top-20 */
+    @apply scroll-m-20;
 }
