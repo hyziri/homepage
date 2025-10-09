@@ -56,7 +56,7 @@ pub fn Guide(
                     }
                 }
                 div { class: "w-1/5",
-                    div { class: "sticky top-20 z-10 flex flex-col gap-6",
+                    div { class: "sticky top-20 z-10 flex flex-col gap-4",
                         GuideAuthorSegment { author: meta.author, }
                         GuideOutlineSegment { outline: outline }
                     }
@@ -64,6 +64,31 @@ pub fn Guide(
             }
         }
     }
+}
+
+#[component]
+pub fn GuideAuthorSegment(author: GuideAuthor<'static>) -> Element {
+    rsx!(
+        div { class: "flex flex-col gap-4 w-full pb-4 border-b border-base-200",
+            p {
+                class: "font-bold",
+                "Posted by"
+            }
+            a { class: "hover:invert-[0.1]", href: "https://zkillboard.com/character/{author.character_id}/",
+                div { class: "flex gap-4 items-center",
+                    div { class: "avatar",
+                        div { class: "w-16 rounded-full",
+                            img { src: "https://images.evetech.net/characters/{author.character_id}/portrait?size=64" }
+                        }
+                    }
+                    div {
+                        p { {author.character_name} }
+                        p { {author.title} }
+                    }
+                }
+            }
+        }
+    )
 }
 
 #[component]
@@ -80,31 +105,6 @@ pub fn GuideOutlineSegment(outline: Vec<GuideOutline<'static>>) -> Element {
                         a { href: "#{entry.id}", class: "hover:text-primary",
                             p { {entry.title} }
                         }
-                    }
-                }
-            }
-        }
-    )
-}
-
-#[component]
-pub fn GuideAuthorSegment(author: GuideAuthor<'static>) -> Element {
-    rsx!(
-        div { class: "flex flex-col gap-4 w-full",
-            p {
-                class: "font-bold",
-                "Posted by"
-            }
-            a { class: "hover:invert-[0.1]", href: "https://zkillboard.com/character/{author.character_id}/",
-                div { class: "flex gap-4 items-center",
-                    div { class: "avatar",
-                        div { class: "w-16 rounded-full",
-                            img { src: "https://images.evetech.net/characters/{author.character_id}/portrait?size=64" }
-                        }
-                    }
-                    div {
-                        p { {author.character_name} }
-                        p { {author.title} }
                     }
                 }
             }
