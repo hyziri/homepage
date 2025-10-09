@@ -4,13 +4,18 @@ use document::{Meta, Title};
 
 use crate::web::{
     components::{Page, Section},
-    model::guide::{GuideEntry, GuideMeta},
+    model::guide::{GuideCategory, GuideEntry, GuideMeta},
     routes::guides::joining_autumn::JOINING_AUTUMN_GUIDE_META,
 };
 
-pub static GUIDE_ENTRIES: [GuideEntry; 1] = [GuideEntry {
+pub static NEW_MEMBERS_ENTRIES: [GuideEntry; 1] = [GuideEntry {
     meta: JOINING_AUTUMN_GUIDE_META,
     href: "/guides/joining-autumn",
+}];
+
+pub static GUIDE_CATEGORIES: [GuideCategory; 1] = [GuideCategory {
+    title: "New Members",
+    entries: &NEW_MEMBERS_ENTRIES,
 }];
 
 #[component]
@@ -23,22 +28,38 @@ pub fn GuidesDirectory() -> Element {
         }
         Page {
             Section { class: "flex flex-col gap-4",
-                h2 { class: "text-2xl font-bold",
+                h1 { class: "text-4xl font-bold",
                     "Autumn Guides"
                 }
-                ul { class: "flex gap-4",
-                    for (key , guide) in GUIDE_ENTRIES.iter().enumerate() {
+                ul { class: "flex flex-col gap-4",
+                    for (key, category) in GUIDE_CATEGORIES.iter().enumerate() {
                         li { key: "{key}",
-                            GuideCard {
-                                meta: guide.meta,
-                                href: guide.href
-                            }
+                            GuideCategorySection { category: *category }
                         }
                     }
                 }
             }
         }
     }
+}
+
+#[component]
+pub fn GuideCategorySection(category: GuideCategory<'static>) -> Element {
+    rsx! (
+        div { class: "flex flex-col gap-4",
+            h2 { class: "font-bold text-2xl", "{category.title}" }
+            ul { class: "flex gap-4",
+                for (key, guide) in category.entries.iter().enumerate() {
+                    li { key: "{key}",
+                        GuideCard {
+                            meta: guide.meta,
+                            href: guide.href
+                        }
+                    }
+                }
+            }
+        }
+    )
 }
 
 #[component]
