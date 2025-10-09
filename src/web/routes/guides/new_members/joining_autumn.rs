@@ -8,7 +8,7 @@ use crate::web::{
 pub static JOINING_AUTUMN_GUIDE_META: GuideMeta<'static> = GuideMeta {
     title: "Joining Autumn",
     description: "Guide on how to join The Order of Autumn",
-    date: "2025-10-02",
+    date: "2025-10-08",
     author: AUTHOR_HYZIRI,
 };
 

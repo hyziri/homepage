@@ -28,7 +28,9 @@ pub fn GuideSidebar(class: Option<&'static str>) -> Element {
 pub fn GuideSidebarCategory(category: GuideCategory<'static>) -> Element {
     rsx! {
         div { class: "flex flex-col gap-1 border-b border-base-200",
-            h3 { class: "font-bold", "{category.title}" }
+            a { href: "{category.page.href}", class: "hover:text-primary",
+                h3 { class: "font-bold", "{category.page.meta.title}" }
+            }
             ul { class: "flex flex-col gap-1 pb-2",
                 for (key, guide) in category.entries.iter().enumerate() {
                     li { key: "{key}", class: "pl-0.5",

@@ -15,7 +15,7 @@ pub struct GuideMeta<'a> {
 
 #[derive(Clone, Copy, PartialEq)]
 pub struct GuideCategory<'a> {
-    pub title: &'a str,
+    pub page: GuideEntry<'static>,
     pub entries: &'a [GuideEntry<'a>],
 }
 

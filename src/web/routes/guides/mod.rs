@@ -1,4 +1,4 @@
-pub mod joining_autumn;
+pub mod new_members;
 pub mod page;
 
 pub use page::GuidesDirectory;

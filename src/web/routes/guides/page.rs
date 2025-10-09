@@ -4,19 +4,11 @@ use document::{Meta, Title};
 
 use crate::web::{
     components::{Page, Section},
-    model::guide::{GuideCategory, GuideEntry, GuideMeta},
-    routes::guides::joining_autumn::JOINING_AUTUMN_GUIDE_META,
+    model::guide::{GuideCategory, GuideMeta},
+    routes::guides::new_members::NEW_MEMBER_GUIDE_CATEGORY,
 };
 
-pub static NEW_MEMBERS_ENTRIES: [GuideEntry; 1] = [GuideEntry {
-    meta: JOINING_AUTUMN_GUIDE_META,
-    href: "/guides/joining-autumn",
-}];
-
-pub static GUIDE_CATEGORIES: [GuideCategory; 1] = [GuideCategory {
-    title: "New Members",
-    entries: &NEW_MEMBERS_ENTRIES,
-}];
+pub static GUIDE_CATEGORIES: [GuideCategory; 1] = [NEW_MEMBER_GUIDE_CATEGORY];
 
 #[component]
 pub fn GuidesDirectory() -> Element {
@@ -47,7 +39,9 @@ pub fn GuidesDirectory() -> Element {
 pub fn GuideCategorySection(category: GuideCategory<'static>) -> Element {
     rsx! (
         div { class: "flex flex-col gap-4",
-            h2 { class: "font-bold text-2xl", "{category.title}" }
+            a { href: "{category.page.href}", class: "hover:text-primary",
+                h2 { class: "font-bold text-2xl", "{category.page.meta.title}" }
+            }
             ul { class: "flex gap-4",
                 for (key, guide) in category.entries.iter().enumerate() {
                     li { key: "{key}",

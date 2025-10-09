@@ -1,6 +1,9 @@
 use dioxus::prelude::*;
 
-use super::routes::guides::{joining_autumn::JoiningAutumnGuide, GuidesDirectory};
+use super::routes::guides::{
+    new_members::{index::NewMemberGuides, joining_autumn::JoiningAutumnGuide},
+    GuidesDirectory,
+};
 use super::routes::join::JoinAutumn;
 use super::routes::tools::AutumnTools;
 use super::routes::Layout;
@@ -22,8 +25,12 @@ pub enum Route {
             #[route("/")]
             GuidesDirectory {},
 
-            #[route("/joining-autumn")]
-            JoiningAutumnGuide {},
+            #[nest("/new-members")]
+                #[route("/")]
+                NewMemberGuides {},
+
+                #[route("/joining-autumn")]
+                JoiningAutumnGuide {},
 
         #[end_nest]
 
