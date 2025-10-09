@@ -1,3 +1,4 @@
+pub mod autumn;
 pub mod new_members;
 pub mod page;
 
