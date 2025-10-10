@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 
 use super::routes::guides::{
-    new_members::{index::NewMemberGuides, joining_autumn::JoiningAutumnGuide},
+    autumn::{highsec::AutumnHighsecGuide, nullsec::AutumnNullsecGuide},
     GuidesDirectory,
 };
 use super::routes::join::JoinAutumn;
@@ -17,25 +17,36 @@ pub enum Route {
         #[route("/")]
         Home {},
 
-        #[route("/:..segments")]
-        NotFound { segments: Vec<String> },
-
         #[nest("/guides")]
 
             #[route("/")]
             GuidesDirectory {},
 
-            #[nest("/new-members")]
-                #[route("/")]
-                NewMemberGuides {},
+            #[nest("/autumn")]
 
-                #[route("/joining-autumn")]
-                JoiningAutumnGuide {},
+                #[nest("/nullsec")]
+
+                    #[route("/")]
+                    AutumnNullsecGuide {},
+
+                #[end_nest]
+
+                #[nest("/highsec")]
+
+                    #[route("/")]
+                    AutumnHighsecGuide {},
+
+                #[end_nest]
+
+            #[end_nest]
 
         #[end_nest]
 
         #[route("/tools")]
         AutumnTools {},
+
+        #[route("/:..segments")]
+        NotFound { segments: Vec<String> },
 
     #[end_layout]
 

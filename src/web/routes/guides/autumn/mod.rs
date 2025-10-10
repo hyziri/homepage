@@ -17,6 +17,5 @@
 //! It makes URLs more predicatable.
 
 pub mod highsec;
-pub mod index;
 pub mod nullsec;
 pub mod shared;

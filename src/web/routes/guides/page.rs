@@ -24,7 +24,7 @@ pub fn GuidesDirectory() -> Element {
                 }
                 ul { class: "flex flex-col items-center gap-4 w-full",
                     li {
-                        a { href: "/guides/autumn/highsec", class: "hover:invert-[0.1]",
+                        a { href: "/guides/autumn/nullsec", class: "hover:invert-[0.1]",
                             GuideCategoryListing {
                                 title: "Autumn Nullsec",
                                 description: "Guides for the Autumn experience in nullsec",
