@@ -18,4 +18,7 @@
 
 pub mod highsec;
 pub mod nullsec;
+pub mod page;
 pub mod shared;
+
+pub use page::AutumnGuide;

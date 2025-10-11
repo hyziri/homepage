@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 
 use super::routes::guides::{
-    autumn::{highsec::AutumnHighsecGuide, nullsec::AutumnNullsecGuide},
+    autumn::{highsec::AutumnHighsecGuide, nullsec::AutumnNullsecGuide, AutumnGuide},
     GuidesDirectory,
 };
 use super::routes::join::JoinAutumn;
@@ -23,6 +23,9 @@ pub enum Route {
             GuidesDirectory {},
 
             #[nest("/autumn")]
+
+                #[route("/")]
+                AutumnGuide {},
 
                 #[nest("/nullsec")]
 
