@@ -6,7 +6,7 @@ use dioxus::prelude::*;
 
 use super::super::sidebar::GuideSidebarCategory;
 use crate::web::{
-    components::guides::category::GuideCategory, routes::guides::page::GUIDE_CATEGORIES,
+    components::guides::category::GuideCategoryButton, routes::guides::page::GUIDE_CATEGORIES,
 };
 
 #[derive(PartialEq)]
@@ -42,8 +42,8 @@ pub fn AutumnGuideSidebar(class: Option<&'static str>) -> Element {
 }
 
 #[component]
-fn NullsecGuideButton() -> Element {
-    rsx!(GuideCategory {
+fn NullsecGuideCategoryButton() -> Element {
+    rsx!(GuideCategoryButton {
         title: "Autumn Nullsec",
         description: "The Order of Autumn",
         image: "https://images.evetech.net/corporations/98785281/logo?size=64".to_string(),
@@ -53,8 +53,8 @@ fn NullsecGuideButton() -> Element {
 }
 
 #[component]
-fn HighsecGuideButton() -> Element {
-    rsx!(GuideCategory {
+fn HighsecGuideCategoryButton() -> Element {
+    rsx!(GuideCategoryButton {
         title: "Autumn Highsec",
         description: "Autumn Inc.",
         image: "https://images.evetech.net/corporations/98812612/logo?size=64".to_string(),
@@ -77,9 +77,9 @@ pub fn NullsecHighsecGuideSwitch() -> Element {
                     dropdown_active.set(!dropdown_status)
                 },
                 if *selected.read() == SelectedAutumnGuideCategory::NULLSEC {
-                    NullsecGuideButton {}
+                    NullsecGuideCategoryButton {}
                 } else {
-                    HighsecGuideButton {}
+                    HighsecGuideCategoryButton {}
                 }
             }
             // Dropdown to alternate option
@@ -91,7 +91,7 @@ pub fn NullsecHighsecGuideSwitch() -> Element {
                                 selected.set(SelectedAutumnGuideCategory::HIGHSEC);
                                 dropdown_active.set(false);
                             },
-                            HighsecGuideButton {}
+                            HighsecGuideCategoryButton {}
                         }
                     } else {
                         button { class: "w-full hover:invert-[0.05]",
@@ -99,7 +99,7 @@ pub fn NullsecHighsecGuideSwitch() -> Element {
                                 selected.set(SelectedAutumnGuideCategory::NULLSEC);
                                 dropdown_active.set(false);
                             },
-                            NullsecGuideButton {}
+                            NullsecGuideCategoryButton {}
 
                         }
                     }

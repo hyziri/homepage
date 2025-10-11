@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 
 #[component]
-pub fn GuideCategory(
+pub fn GuideCategoryButton(
     title: String,
     description: String,
     image: String,
