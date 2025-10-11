@@ -3,10 +3,13 @@ use dioxus::prelude::*;
 use document::{Meta, Title};
 
 use crate::web::{
-    components::{guides::autumn::sidebar::AutumnGuideSidebar, Page, Section},
+    components::{
+        guides::author::GuideAuthorSegment, guides::autumn::sidebar::AutumnGuideSidebar,
+        guides::outline::GuideOutlineSegment, Page, Section,
+    },
     model::{
         breadcrumb::Breadcrumb,
-        guide::{GuideAuthor, GuideMeta, GuideOutline},
+        guide::{GuideMeta, GuideOutline},
     },
     util::breadcrumb::path_to_breadcrumbs,
 };
@@ -60,50 +63,4 @@ pub fn Guide(meta: GuideMeta<'static>, outline: Vec<GuideOutline>, children: Ele
             }
         }
     }
-}
-
-#[component]
-pub fn GuideAuthorSegment(author: GuideAuthor<'static>) -> Element {
-    rsx!(
-        div { class: "flex flex-col gap-4 w-full pb-4 border-b border-base-200",
-            p {
-                class: "font-bold",
-                "Posted by"
-            }
-            a { class: "hover:invert-[0.1]", href: "https://zkillboard.com/character/{author.character_id}/",
-                div { class: "flex gap-4 items-center",
-                    div { class: "avatar",
-                        div { class: "w-16 rounded-full",
-                            img { src: "https://images.evetech.net/characters/{author.character_id}/portrait?size=64" }
-                        }
-                    }
-                    div {
-                        p { {author.character_name} }
-                        p { {author.title} }
-                    }
-                }
-            }
-        }
-    )
-}
-
-#[component]
-pub fn GuideOutlineSegment(outline: Vec<GuideOutline>) -> Element {
-    rsx!(
-        div { class: "flex flex-col gap-2 w-full",
-            p {
-                class: "font-bold",
-                "On this page"
-            }
-            ul { class: "flex flex-col gap-1",
-                for (key, entry) in outline.iter().enumerate() {
-                    li { key: "{key}",
-                        a { href: "#{entry.id}", class: "hover:text-primary",
-                            p { "{entry.title}" }
-                        }
-                    }
-                }
-            }
-        }
-    )
 }
