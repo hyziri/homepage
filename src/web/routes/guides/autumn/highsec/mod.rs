@@ -1,3 +1,3 @@
-pub mod index;
+pub mod page;
 
-pub use index::AutumnHighsecGuide;
+pub use page::AutumnHighsecGuide;
