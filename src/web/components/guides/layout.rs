@@ -3,7 +3,7 @@ use dioxus::prelude::*;
 use document::{Meta, Title};
 
 use crate::web::{
-    components::{guides::sidebar::GuideSidebar, Page, Section},
+    components::{guides::autumn::sidebar::AutumnGuideSidebar, Page, Section},
     model::{
         breadcrumb::Breadcrumb,
         guide::{GuideAuthor, GuideMeta, GuideOutline},
@@ -30,7 +30,7 @@ pub fn Guide(meta: GuideMeta<'static>, outline: Vec<GuideOutline>, children: Ele
         Page {
             Section {
                 class: "flex min-h-screen",
-                GuideSidebar {  class: "w-1/5" }
+                AutumnGuideSidebar {  class: "w-1/5" }
                 div { class: "w-3/5 px-8",
                     div { class: "flex flex-col pb-4",
                         div { class: "breadcrumbs text-sm pb-4",
