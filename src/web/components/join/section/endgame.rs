@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 use manganis::Asset;
 
-use crate::web::constant::FEATURED_VIDEO;
+use crate::web::constant::join::FEATURED_VIDEO;
 
 #[component]
 pub fn Endgame() -> Element {

@@ -1,3 +1,3 @@
-pub mod breadcrumb;
+pub mod app;
 pub mod guide;
 pub mod join;

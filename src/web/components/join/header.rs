@@ -5,7 +5,7 @@ use dioxus_free_icons::Icon;
 use manganis::Asset;
 
 use crate::web::{
-    constant::{APPLICATIONS_URL, DISCORD_URL},
+    constant::app::{APPLICATIONS_URL, DISCORD_URL},
     Route,
 };
 

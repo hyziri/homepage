@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_free_icons::icons::{fa_brands_icons::FaDiscord, fa_solid_icons::FaBars};
 use dioxus_free_icons::Icon;
 
-use crate::web::constant::DISCORD_URL;
+use crate::web::constant::app::DISCORD_URL;
 use crate::web::Route;
 
 #[derive(PartialEq, Clone, Props)]

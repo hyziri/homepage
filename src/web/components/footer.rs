@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_free_icons::icons::fa_brands_icons::{FaDiscord, FaGithub};
 use dioxus_free_icons::Icon;
 
-use crate::web::constant::{DISCORD_URL, GITHUB_URL};
+use crate::web::constant::app::{DISCORD_URL, GITHUB_URL};
 use crate::web::Route;
 
 pub struct FooterSection {

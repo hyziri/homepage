@@ -4,7 +4,10 @@ use dioxus_free_icons::Icon;
 use manganis::Asset;
 
 use crate::web::{
-    constant::{APPLICATIONS_URL, DISCORD_URL, EVE_LEGAL_STATEMENT},
+    constant::{
+        app::{APPLICATIONS_URL, DISCORD_URL},
+        join::EVE_LEGAL_STATEMENT,
+    },
     Route,
 };
 

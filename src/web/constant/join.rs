@@ -1,26 +1,6 @@
-#[derive(PartialEq)]
-pub struct CorpCardData {
-    pub name: &'static str,
-    pub corporation_id: u64,
-    pub location: &'static str,
-    pub cta_text: &'static str,
-}
-
-pub struct FAQEntry {
-    pub question: &'static str,
-    pub answer: &'static str,
-}
-
-// Social Media URLs
-pub const DISCORD_URL: &str = "https://discord.gg/HjaGsBBtFg";
-pub const GITHUB_URL: &str = "https://github.com/autumn-order";
-
-// Websites
-
-pub const BLACK_ROSE_WEBSITE_URL: &str = "https://black-rose.space";
-pub const APPLICATIONS_URL: &str = "https://apply.autumn-order.com";
-
 // Join Page Video
+
+use crate::web::model::join::{CorpCardData, FAQEntry};
 
 pub const FEATURED_VIDEO: &str = "https://www.youtube.com/embed/AdfFnTt2UT0?si=x3rGt9pHRJHZ9g8i";
 
