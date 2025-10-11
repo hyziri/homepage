@@ -24,24 +24,13 @@ pub fn GuidesDirectory() -> Element {
                 }
                 ul { class: "flex flex-col items-center gap-4 w-full",
                     li {
-                        a { href: "/guides/autumn/nullsec", class: "hover:invert-[0.1]",
+                        a { href: "/guides/autumn", class: "hover:invert-[0.1]",
                             GuideCategoryListing {
-                                title: "Autumn Nullsec",
-                                description: "Guides for the Autumn experience in nullsec",
+                                title: "Autumn",
+                                description: "Guides for the EVE Online experience with Autumn",
                                 image: "https://images.evetech.net/corporations/98785281/logo?size=128",
-                                class: "bg-gradient-to-r from-amber-800 to-amber-700",
+                                class: "bg-gradient-to-br from-orange-800 to-amber-800",
                                 image_div_class: "bg-amber-900"
-                            }
-                        }
-                    }
-                    li {
-                        a { href: "/guides/autumn/highsec", class: "hover:invert-[0.1]",
-                            GuideCategoryListing {
-                                title: "Autumn Highsec",
-                                description: "Guides for the Autumn experience in highsec",
-                                image: "https://images.evetech.net/corporations/98812612/logo?size=128",
-                                class: "bg-gradient-to-r from-cyan-800 to-cyan-700",
-                                image_div_class: "bg-cyan-900"
                             }
                         }
                     }
