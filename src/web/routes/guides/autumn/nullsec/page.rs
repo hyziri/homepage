@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 
 use crate::web::{
-    components::guides::{author::AUTHOR_HYZIRI, layout::Guide},
+    components::guides::{author::AUTHOR_HYZIRI, guide::Guide},
     model::guide::{GuideEntry, GuideMeta},
 };
 
