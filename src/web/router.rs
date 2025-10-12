@@ -1,13 +1,17 @@
 use dioxus::prelude::*;
 
-use super::routes::guides::{
-    autumn::{highsec::AutumnHighsecGuide, nullsec::AutumnNullsecGuide, AutumnGuide},
-    GuidesDirectory,
+use crate::web::{
+    components::guides::autumn::layout::AutumnGuideLayout,
+    routes::{
+        guides::{
+            autumn::{highsec::AutumnHighsecGuide, nullsec::AutumnNullsecGuide, AutumnGuide},
+            GuidesDirectory,
+        },
+        join::JoinAutumn,
+        tools::AutumnTools,
+        Home, Layout, NotFound,
+    },
 };
-use super::routes::join::JoinAutumn;
-use super::routes::tools::AutumnTools;
-use super::routes::Layout;
-use super::routes::{Home, NotFound};
 
 #[rustfmt::skip]
 #[derive(Clone, Routable, Debug, PartialEq, serde::Serialize, serde::Deserialize)]
@@ -23,6 +27,7 @@ pub enum Route {
             GuidesDirectory {},
 
             #[nest("/autumn")]
+            #[layout(AutumnGuideLayout)]
 
                 #[route("/")]
                 AutumnGuide {},
@@ -41,6 +46,7 @@ pub enum Route {
 
                 #[end_nest]
 
+            #[end_layout]
             #[end_nest]
 
         #[end_nest]

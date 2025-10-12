@@ -4,8 +4,8 @@ use document::{Meta, Title};
 
 use crate::web::{
     components::{
-        guides::author::GuideAuthorSegment, guides::autumn::sidebar::AutumnGuideSidebar,
-        guides::outline::GuideOutlineSegment, Page, Section,
+        guides::{author::GuideAuthorSegment, outline::GuideOutlineSegment},
+        Page, Section,
     },
     model::{
         breadcrumb::Breadcrumb,
@@ -30,36 +30,30 @@ pub fn Guide(meta: GuideMeta<'static>, outline: Vec<GuideOutline>, children: Ele
             name: "description",
             content: meta.description
         }
-        Page {
-            Section {
-                class: "flex min-h-screen",
-                AutumnGuideSidebar {  class: "w-1/5" }
-                div { class: "w-3/5 px-8",
-                    div { class: "flex flex-col pb-4",
-                        div { class: "breadcrumbs text-sm pb-4",
-                            ul {
-                                for (key, crumb) in breadcrumbs.iter().enumerate() {
-                                    li { key: "{key}",
-                                        a {
-                                            href: "{crumb.href}", "{crumb.name}"
-                                        }
-                                    }
+        div { class: "w-3/5 px-8",
+            div { class: "flex flex-col pb-4",
+                div { class: "breadcrumbs text-sm pb-4",
+                    ul {
+                        for (key, crumb) in breadcrumbs.iter().enumerate() {
+                            li { key: "{key}",
+                                a {
+                                    href: "{crumb.href}", "{crumb.name}"
                                 }
                             }
                         }
-                        h1 { class: "font-bold text-2xl xl:text-4xl", {meta.title} }
-                        p { {formatted_date} }
-                    }
-                    article { class: "guide-content prose",
-                        {children}
                     }
                 }
-                div { class: "w-1/5",
-                    div { class: "sticky top-20 z-10 flex flex-col gap-4",
-                        GuideAuthorSegment { author: meta.author, }
-                        GuideOutlineSegment { outline: outline }
-                    }
-                }
+                h1 { class: "font-bold text-2xl xl:text-4xl", {meta.title} }
+                p { {formatted_date} }
+            }
+            article { class: "guide-content prose",
+                {children}
+            }
+        }
+        div { class: "w-1/5",
+            div { class: "sticky top-20 z-10 flex flex-col gap-4",
+                GuideAuthorSegment { author: meta.author, }
+                GuideOutlineSegment { outline: outline }
             }
         }
     }
