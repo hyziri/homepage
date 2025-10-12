@@ -3,10 +3,7 @@ use dioxus::prelude::*;
 use document::{Meta, Title};
 
 use crate::web::{
-    components::{
-        guides::{author::GuideAuthorSegment, outline::GuideOutlineSegment},
-        Page, Section,
-    },
+    components::guides::{author::GuideAuthorSegment, outline::GuideOutlineSegment},
     model::{
         breadcrumb::Breadcrumb,
         guide::{GuideMeta, GuideOutline},
@@ -36,8 +33,8 @@ pub fn Guide(meta: GuideMeta<'static>, outline: Vec<GuideOutline>, children: Ele
                     ul {
                         for (key, crumb) in breadcrumbs.iter().enumerate() {
                             li { key: "{key}",
-                                a {
-                                    href: "{crumb.href}", "{crumb.name}"
+                                Link {
+                                    to: "{crumb.route}", "{crumb.name}"
                                 }
                             }
                         }
