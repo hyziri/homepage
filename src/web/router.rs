@@ -4,7 +4,17 @@ use crate::web::{
     components::guides::autumn::layout::AutumnGuideLayout,
     routes::{
         guides::{
-            autumn::{highsec::AutumnHighsecGuide, nullsec::AutumnNullsecGuide, AutumnGuide},
+            autumn::{
+                highsec::{
+                    new_members::{AutumnHighsecGettingStartedGuide, AutumnHighsecNewMembersGuide},
+                    AutumnHighsecGuide,
+                },
+                nullsec::{
+                    new_members::{AutumnNullsecGettingStartedGuide, AutumnNullsecNewMembersGuide},
+                    AutumnNullsecGuide,
+                },
+                AutumnGuide,
+            },
             GuidesDirectory,
         },
         join::JoinAutumn,
@@ -37,12 +47,32 @@ pub enum Route {
                     #[route("/")]
                     AutumnNullsecGuide {},
 
+                    #[nest("/new-members")]
+
+                        #[route("/")]
+                        AutumnNullsecNewMembersGuide {},
+
+                        #[route("/getting-started")]
+                        AutumnNullsecGettingStartedGuide {},
+
+                    #[end_nest]
+
                 #[end_nest]
 
                 #[nest("/highsec")]
 
                     #[route("/")]
                     AutumnHighsecGuide {},
+
+                    #[nest("/new-members")]
+
+                        #[route("/")]
+                        AutumnHighsecNewMembersGuide {},
+
+                        #[route("/getting-started")]
+                        AutumnHighsecGettingStartedGuide {},
+
+                    #[end_nest]
 
                 #[end_nest]
 

@@ -8,14 +8,20 @@ use crate::web::{
     components::guides::{category::GuideCategoryButton, sidebar::GuideSidebarCategory},
     constant::app::ACTIVE_AUTUMN_GUIDE_SUBCATEGORY,
     model::guide::{AutumnGuideSubcategory, GuideCategory},
+    routes::guides::autumn::{
+        highsec::AUTUMN_HIGHSEC_GUIDE_CATEGORIES, nullsec::AUTUMN_NULLSEC_GUIDE_CATEGORIES,
+    },
     Route,
 };
-
-static GUIDE_CATEGORIES: &[GuideCategory] = &[];
 
 #[component]
 pub fn AutumnGuideSidebar(class: Option<&'static str>) -> Element {
     let class: &str = if let Some(class) = class { class } else { "" };
+
+    let guide_categories: &[GuideCategory] = match *ACTIVE_AUTUMN_GUIDE_SUBCATEGORY.read() {
+        AutumnGuideSubcategory::NULLSEC => AUTUMN_NULLSEC_GUIDE_CATEGORIES,
+        AutumnGuideSubcategory::HIGHSEC => AUTUMN_HIGHSEC_GUIDE_CATEGORIES,
+    };
 
     rsx!(
         div { class: "{class}",
@@ -34,7 +40,7 @@ pub fn AutumnGuideSidebar(class: Option<&'static str>) -> Element {
                     }
                 }
                 ul {
-                    for (key, category) in GUIDE_CATEGORIES.iter().enumerate() {
+                    for (key, category) in guide_categories.iter().enumerate() {
                         li { key: "{key}",
                             GuideSidebarCategory { category: *category }
                         }
