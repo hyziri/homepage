@@ -3,12 +3,8 @@ use document::{Meta, Title};
 
 use crate::web::{
     components::{guides::category::GuideCategoryButton, Page, Section},
-    model::guide::GuideCategory,
-    routes::guides::new_members::NEW_MEMBER_GUIDE_CATEGORY,
     Route,
 };
-
-pub static GUIDE_CATEGORIES: [GuideCategory; 1] = [NEW_MEMBER_GUIDE_CATEGORY];
 
 #[component]
 pub fn GuidesDirectory() -> Element {

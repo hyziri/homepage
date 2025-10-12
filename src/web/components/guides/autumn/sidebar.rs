@@ -4,12 +4,14 @@
 
 use dioxus::prelude::*;
 
-use super::super::sidebar::GuideSidebarCategory;
 use crate::web::{
-    components::guides::category::GuideCategoryButton,
-    constant::guide::ACTIVE_AUTUMN_GUIDE_SUBCATEGORY, model::guide::AutumnGuideSubcategory,
-    routes::guides::page::GUIDE_CATEGORIES, Route,
+    components::guides::{category::GuideCategoryButton, sidebar::GuideSidebarCategory},
+    constant::guide::ACTIVE_AUTUMN_GUIDE_SUBCATEGORY,
+    model::guide::{AutumnGuideSubcategory, GuideCategory},
+    Route,
 };
+
+static GUIDE_CATEGORIES: &[GuideCategory] = &[];
 
 #[component]
 pub fn AutumnGuideSidebar(class: Option<&'static str>) -> Element {
@@ -37,7 +39,7 @@ pub fn AutumnGuideSidebar(class: Option<&'static str>) -> Element {
                             GuideSidebarCategory { category: *category }
                         }
                     }
-               }
+                }
             }
         }
     )

@@ -1,28 +1,6 @@
 use dioxus::prelude::*;
 
-use crate::web::{model::guide::GuideCategory, routes::guides::page::GUIDE_CATEGORIES};
-
-#[component]
-pub fn GuideSidebar(class: Option<&'static str>) -> Element {
-    let class: &str = if let Some(class) = class { class } else { "" };
-
-    rsx!(
-        div { class: "{class}",
-            div { class: "sticky top-20 z-10 flex flex-col gap-1",
-                a { href: "/guides", class: "hover:text-primary",
-                    h2 { class: "font-bold text-xl", "Guides" }
-                }
-                ul {
-                    for (key, category) in GUIDE_CATEGORIES.iter().enumerate() {
-                        li { key: "{key}",
-                            GuideSidebarCategory { category: *category }
-                        }
-                    }
-                }
-            }
-        }
-    )
-}
+use crate::web::model::guide::GuideCategory;
 
 #[component]
 pub fn GuideSidebarCategory(category: GuideCategory<'static>) -> Element {

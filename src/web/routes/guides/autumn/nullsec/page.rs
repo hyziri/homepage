@@ -8,7 +8,6 @@ use crate::web::{
 static AUTUMN_NULLSEC_GUIDE: GuideEntry = GuideEntry {
     meta: AUTUMN_NULLSEC_GUIDE_META,
     href: "/guides/autumn/nullsec",
-    entries: &[],
 };
 
 static AUTUMN_NULLSEC_GUIDE_META: GuideMeta = GuideMeta {

@@ -8,7 +8,6 @@ use crate::web::{
 static AUTUMN_GUIDE: GuideEntry = GuideEntry {
     meta: AUTUMN_GUIDE_META,
     href: "/guides/autumn",
-    entries: &[],
 };
 
 static AUTUMN_GUIDE_META: GuideMeta = GuideMeta {
