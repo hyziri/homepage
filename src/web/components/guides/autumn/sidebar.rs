@@ -7,7 +7,7 @@ use dioxus::prelude::*;
 use super::super::sidebar::GuideSidebarCategory;
 use crate::web::{
     components::guides::category::GuideCategoryButton, model::guide::SelectedAutumnGuideCategory,
-    routes::guides::page::GUIDE_CATEGORIES,
+    routes::guides::page::GUIDE_CATEGORIES, Route,
 };
 
 #[component]
@@ -73,6 +73,8 @@ pub fn NullsecHighsecGuideSwitch(
 ) -> Element {
     let mut dropdown_active = use_signal(|| false);
 
+    let nav = navigator();
+
     rsx! (
         div {
             // Button to toggle dropdown
@@ -95,6 +97,7 @@ pub fn NullsecHighsecGuideSwitch(
                             onclick: move |_| {
                                 selected_category.set(SelectedAutumnGuideCategory::HIGHSEC);
                                 dropdown_active.set(false);
+                                nav.push(Route::AutumnHighsecGuide {});
                             },
                             HighsecGuideCategoryButton {}
                         }
@@ -103,6 +106,7 @@ pub fn NullsecHighsecGuideSwitch(
                             onclick: move |_| {
                                 selected_category.set(SelectedAutumnGuideCategory::NULLSEC);
                                 dropdown_active.set(false);
+                                nav.push(Route::AutumnNullsecGuide {});
                             },
                             NullsecGuideCategoryButton {}
                         }
