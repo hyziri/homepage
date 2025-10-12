@@ -20,16 +20,16 @@ pub fn AutumnGuideSidebar(
     rsx!(
         div { class: "{class}",
             div { class: "sticky top-20 z-10 flex flex-col gap-2",
-                a { href: "/guides/autumn", class: "hover:text-primary",
+                Link { to: Route::AutumnGuide {}, class: "hover:text-primary",
                     h2 { class: "font-bold text-2xl", "Autumn Guides" }
                 }
                 NullsecHighsecGuideSwitch { selected_category: selected_category }
                 if *selected_category.read() == SelectedAutumnGuideCategory::NULLSEC {
-                    a { href: "/guides/autumn/nullsec", class: "hover:text-primary",
+                    Link { to: Route::AutumnNullsecGuide {}, class: "hover:text-primary",
                         h2 { class: "font-bold text-xl", "Autumn Nullsec Guides" }
                     }
                 } else {
-                    a { href: "/guides/autumn/highsec", class: "hover:text-primary",
+                    Link { to: Route::AutumnHighsecGuide {}, class: "hover:text-primary",
                         h2 { class: "font-bold text-xl", "Autumn Highsec Guides" }
                     }
                 }

@@ -5,6 +5,7 @@ use crate::web::{
     components::{guides::category::GuideCategoryButton, Page, Section},
     model::guide::GuideCategory,
     routes::guides::new_members::NEW_MEMBER_GUIDE_CATEGORY,
+    Route,
 };
 
 pub static GUIDE_CATEGORIES: [GuideCategory; 1] = [NEW_MEMBER_GUIDE_CATEGORY];
@@ -24,7 +25,7 @@ pub fn GuidesDirectory() -> Element {
                 }
                 ul { class: "flex flex-col items-center gap-4 w-full",
                     li {
-                        a { href: "/guides/autumn", class: "hover:invert-[0.1]",
+                        Link { to: Route::AutumnGuide {}, class: "hover:invert-[0.1]",
                             GuideCategoryButton {
                                 title: "Autumn",
                                 description: "Guides for the EVE Online experience with Autumn",

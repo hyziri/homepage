@@ -62,7 +62,7 @@ pub fn Footer() -> Element {
             footer { class: "footer text-base-content px-4 max-w-[1440px] w-full flex gap-12 flex-wrap",
                 aside { class: "w-full sm:w-fit",
                     Link {
-                        to: Route::JoinAutumn {  },
+                        to: Route::Home {  },
                         class: "btn btn-ghost flex items-center gap-2",
                         img {
                             class: "w-12 h-12",
