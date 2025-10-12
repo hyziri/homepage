@@ -1,9 +1,8 @@
 use dioxus::prelude::*;
 
 use crate::web::{
-    components::guides::{author::AUTHOR_HYZIRI, guide::Guide},
-    model::guide::GuideMeta,
-    Route,
+    components::guides::guide::Guide, constant::guide::author::AUTHOR_HYZIRI,
+    model::guide::GuideMeta, Route,
 };
 
 static AUTUMN_NULLSEC_GUIDE_META: GuideMeta = GuideMeta {

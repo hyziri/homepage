@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 
 use crate::web::{
     components::{guides::autumn::sidebar::AutumnGuideSidebar, Page, Section},
-    constant::guide::ACTIVE_AUTUMN_GUIDE_SUBCATEGORY,
+    constant::app::ACTIVE_AUTUMN_GUIDE_SUBCATEGORY,
     model::guide::AutumnGuideSubcategory,
     Route,
 };
