@@ -6,17 +6,15 @@ use dioxus::prelude::*;
 
 use super::super::sidebar::GuideSidebarCategory;
 use crate::web::{
-    components::guides::category::GuideCategoryButton, routes::guides::page::GUIDE_CATEGORIES,
+    components::guides::category::GuideCategoryButton, model::guide::SelectedAutumnGuideCategory,
+    routes::guides::page::GUIDE_CATEGORIES,
 };
 
-#[derive(PartialEq)]
-enum SelectedAutumnGuideCategory {
-    NULLSEC,
-    HIGHSEC,
-}
-
 #[component]
-pub fn AutumnGuideSidebar(class: Option<&'static str>) -> Element {
+pub fn AutumnGuideSidebar(
+    class: Option<&'static str>,
+    selected_category: Signal<SelectedAutumnGuideCategory>,
+) -> Element {
     let class: &str = if let Some(class) = class { class } else { "" };
 
     rsx!(
@@ -25,9 +23,15 @@ pub fn AutumnGuideSidebar(class: Option<&'static str>) -> Element {
                 a { href: "/guides/autumn", class: "hover:text-primary",
                     h2 { class: "font-bold text-2xl", "Autumn Guides" }
                 }
-                NullsecHighsecGuideSwitch {}
-                a { href: "/guides/autumn/nullsec", class: "hover:text-primary",
-                    h2 { class: "font-bold text-xl", "Autumn Nullsec Guides" }
+                NullsecHighsecGuideSwitch { selected_category: selected_category }
+                if *selected_category.read() == SelectedAutumnGuideCategory::NULLSEC {
+                    a { href: "/guides/autumn/nullsec", class: "hover:text-primary",
+                        h2 { class: "font-bold text-xl", "Autumn Nullsec Guides" }
+                    }
+                } else {
+                    a { href: "/guides/autumn/highsec", class: "hover:text-primary",
+                        h2 { class: "font-bold text-xl", "Autumn Highsec Guides" }
+                    }
                 }
                 ul {
                     for (key, category) in GUIDE_CATEGORIES.iter().enumerate() {
@@ -64,8 +68,9 @@ fn HighsecGuideCategoryButton() -> Element {
 }
 
 #[component]
-pub fn NullsecHighsecGuideSwitch() -> Element {
-    let mut selected = use_signal(|| SelectedAutumnGuideCategory::NULLSEC);
+pub fn NullsecHighsecGuideSwitch(
+    selected_category: Signal<SelectedAutumnGuideCategory>,
+) -> Element {
     let mut dropdown_active = use_signal(|| false);
 
     rsx! (
@@ -76,7 +81,7 @@ pub fn NullsecHighsecGuideSwitch() -> Element {
                     let dropdown_status = *dropdown_active.read();
                     dropdown_active.set(!dropdown_status)
                 },
-                if *selected.read() == SelectedAutumnGuideCategory::NULLSEC {
+                if *selected_category.read() == SelectedAutumnGuideCategory::NULLSEC {
                     NullsecGuideCategoryButton {}
                 } else {
                     HighsecGuideCategoryButton {}
@@ -85,10 +90,10 @@ pub fn NullsecHighsecGuideSwitch() -> Element {
             // Dropdown to alternate option
             if *dropdown_active.read() {
                 div { class: "absolute left-0 w-full z-50",
-                    if *selected.read() == SelectedAutumnGuideCategory::NULLSEC {
+                    if *selected_category.read() == SelectedAutumnGuideCategory::NULLSEC {
                         button { class: "w-full hover:invert-[0.05]",
                             onclick: move |_| {
-                                selected.set(SelectedAutumnGuideCategory::HIGHSEC);
+                                selected_category.set(SelectedAutumnGuideCategory::HIGHSEC);
                                 dropdown_active.set(false);
                             },
                             HighsecGuideCategoryButton {}
@@ -96,11 +101,10 @@ pub fn NullsecHighsecGuideSwitch() -> Element {
                     } else {
                         button { class: "w-full hover:invert-[0.05]",
                             onclick: move |_| {
-                                selected.set(SelectedAutumnGuideCategory::NULLSEC);
+                                selected_category.set(SelectedAutumnGuideCategory::NULLSEC);
                                 dropdown_active.set(false);
                             },
                             NullsecGuideCategoryButton {}
-
                         }
                     }
                 }

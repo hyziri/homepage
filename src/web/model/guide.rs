@@ -1,3 +1,9 @@
+#[derive(PartialEq)]
+pub enum SelectedAutumnGuideCategory {
+    NULLSEC,
+    HIGHSEC,
+}
+
 #[derive(Clone, PartialEq, Copy)]
 pub struct GuideAuthor<'a> {
     pub character_name: &'a str,
