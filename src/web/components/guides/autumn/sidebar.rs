@@ -6,15 +6,13 @@ use dioxus::prelude::*;
 
 use super::super::sidebar::GuideSidebarCategory;
 use crate::web::{
-    components::guides::category::GuideCategoryButton, model::guide::SelectedAutumnGuideCategory,
+    components::guides::category::GuideCategoryButton,
+    constant::guide::ACTIVE_AUTUMN_GUIDE_SUBCATEGORY, model::guide::AutumnGuideSubcategory,
     routes::guides::page::GUIDE_CATEGORIES, Route,
 };
 
 #[component]
-pub fn AutumnGuideSidebar(
-    class: Option<&'static str>,
-    selected_category: Signal<SelectedAutumnGuideCategory>,
-) -> Element {
+pub fn AutumnGuideSidebar(class: Option<&'static str>) -> Element {
     let class: &str = if let Some(class) = class { class } else { "" };
 
     rsx!(
@@ -23,8 +21,8 @@ pub fn AutumnGuideSidebar(
                 Link { to: Route::AutumnGuide {}, class: "hover:text-primary",
                     h2 { class: "font-bold text-2xl", "Autumn Guides" }
                 }
-                NullsecHighsecGuideSwitch { selected_category: selected_category }
-                if *selected_category.read() == SelectedAutumnGuideCategory::NULLSEC {
+                NullsecHighsecGuideSwitch { }
+                if *ACTIVE_AUTUMN_GUIDE_SUBCATEGORY.read() == AutumnGuideSubcategory::NULLSEC {
                     Link { to: Route::AutumnNullsecGuide {}, class: "hover:text-primary",
                         h2 { class: "font-bold text-xl", "Autumn Nullsec Guides" }
                     }
@@ -68,9 +66,7 @@ fn HighsecGuideCategoryButton() -> Element {
 }
 
 #[component]
-pub fn NullsecHighsecGuideSwitch(
-    selected_category: Signal<SelectedAutumnGuideCategory>,
-) -> Element {
+pub fn NullsecHighsecGuideSwitch() -> Element {
     let mut dropdown_active = use_signal(|| false);
 
     let nav = navigator();
@@ -83,7 +79,7 @@ pub fn NullsecHighsecGuideSwitch(
                     let dropdown_status = *dropdown_active.read();
                     dropdown_active.set(!dropdown_status)
                 },
-                if *selected_category.read() == SelectedAutumnGuideCategory::NULLSEC {
+                if *ACTIVE_AUTUMN_GUIDE_SUBCATEGORY.read() == AutumnGuideSubcategory::NULLSEC {
                     NullsecGuideCategoryButton {}
                 } else {
                     HighsecGuideCategoryButton {}
@@ -92,10 +88,10 @@ pub fn NullsecHighsecGuideSwitch(
             // Dropdown to alternate option
             if *dropdown_active.read() {
                 div { class: "absolute left-0 w-full z-50",
-                    if *selected_category.read() == SelectedAutumnGuideCategory::NULLSEC {
+                    if *ACTIVE_AUTUMN_GUIDE_SUBCATEGORY.read() == AutumnGuideSubcategory::NULLSEC {
                         button { class: "w-full hover:invert-[0.05]",
                             onclick: move |_| {
-                                selected_category.set(SelectedAutumnGuideCategory::HIGHSEC);
+                                *ACTIVE_AUTUMN_GUIDE_SUBCATEGORY.write() = AutumnGuideSubcategory::HIGHSEC;
                                 dropdown_active.set(false);
                                 nav.push(Route::AutumnHighsecGuide {});
                             },
@@ -104,7 +100,7 @@ pub fn NullsecHighsecGuideSwitch(
                     } else {
                         button { class: "w-full hover:invert-[0.05]",
                             onclick: move |_| {
-                                selected_category.set(SelectedAutumnGuideCategory::NULLSEC);
+                                *ACTIVE_AUTUMN_GUIDE_SUBCATEGORY.write() = AutumnGuideSubcategory::NULLSEC;
                                 dropdown_active.set(false);
                                 nav.push(Route::AutumnNullsecGuide {});
                             },

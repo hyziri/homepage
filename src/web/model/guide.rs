@@ -1,5 +1,5 @@
 #[derive(PartialEq)]
-pub enum SelectedAutumnGuideCategory {
+pub enum AutumnGuideSubcategory {
     NULLSEC,
     HIGHSEC,
 }
