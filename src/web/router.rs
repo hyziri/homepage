@@ -13,6 +13,7 @@ use crate::web::{
                     new_members::{AutumnNullsecGettingStartedGuide, AutumnNullsecNewMembersGuide},
                     AutumnNullsecGuide,
                 },
+                shared::new_members::AutumnJoinGuide,
                 AutumnGuide,
             },
             GuidesDirectory,
@@ -41,6 +42,9 @@ pub enum Route {
 
                 #[route("/")]
                 AutumnGuide {},
+
+                #[route("/joining-autumn")]
+                AutumnJoinGuide {},
 
                 #[nest("/nullsec")]
 
