@@ -1,3 +1,11 @@
+use crate::web::Route;
+
+#[derive(PartialEq)]
+pub enum AutumnGuideSubcategory {
+    NULLSEC,
+    HIGHSEC,
+}
+
 #[derive(Clone, PartialEq, Copy)]
 pub struct GuideAuthor<'a> {
     pub character_name: &'a str,
@@ -7,6 +15,7 @@ pub struct GuideAuthor<'a> {
 
 #[derive(Clone, Copy, PartialEq)]
 pub struct GuideMeta<'a> {
+    pub route: &'a Route,
     pub title: &'a str,
     pub description: &'a str,
     pub date: &'a str,
@@ -15,14 +24,8 @@ pub struct GuideMeta<'a> {
 
 #[derive(Clone, Copy, PartialEq)]
 pub struct GuideCategory<'a> {
-    pub page: GuideEntry<'static>,
-    pub entries: &'a [GuideEntry<'a>],
-}
-
-#[derive(Clone, PartialEq, Copy)]
-pub struct GuideEntry<'a> {
-    pub meta: GuideMeta<'static>,
-    pub href: &'a str,
+    pub page: GuideMeta<'static>,
+    pub entries: &'a [GuideMeta<'a>],
 }
 
 #[derive(Clone, PartialEq)]

@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use dioxus_free_icons::icons::fa_brands_icons::{FaDiscord, FaGithub};
 use dioxus_free_icons::Icon;
 
-use crate::web::constant::{DISCORD_URL, GITHUB_URL};
+use crate::web::constant::app::{DISCORD_URL, GITHUB_URL};
 use crate::web::Route;
 
 pub struct FooterSection {
@@ -62,7 +62,7 @@ pub fn Footer() -> Element {
             footer { class: "footer text-base-content px-4 max-w-[1440px] w-full flex gap-12 flex-wrap",
                 aside { class: "w-full sm:w-fit",
                     Link {
-                        to: Route::JoinAutumn {  },
+                        to: Route::Home {  },
                         class: "btn btn-ghost flex items-center gap-2",
                         img {
                             class: "w-12 h-12",

@@ -2,14 +2,9 @@ use dioxus::prelude::*;
 use dioxus_free_icons::icons::{fa_brands_icons::FaDiscord, fa_solid_icons::FaBars};
 use dioxus_free_icons::Icon;
 
-use crate::web::constant::DISCORD_URL;
+use crate::web::constant::app::DISCORD_URL;
+use crate::web::model::app::HeaderLink;
 use crate::web::Route;
-
-#[derive(PartialEq, Clone, Props)]
-pub struct HeaderLink {
-    pub text: &'static str,
-    pub href: &'static str,
-}
 
 #[component]
 pub fn Header() -> Element {
@@ -26,11 +21,11 @@ pub fn Header() -> Element {
     let links: Vec<HeaderLink> = vec![
         HeaderLink {
             text: "Guides",
-            href: "/guides",
+            route: Route::GuidesDirectory {},
         },
         HeaderLink {
             text: "Tools",
-            href: "/tools",
+            route: Route::AutumnTools {},
         },
     ];
 
@@ -50,7 +45,7 @@ pub fn Header() -> Element {
                 ul { class: "hidden md:flex items-center",
                     for (key , value) in links.iter().enumerate() {
                         li { key: "{key}",
-                            a { class: "btn btn-ghost", href: value.href, "{value.text}" }
+                            Link { class: "btn btn-ghost", to: "{value.route}", "{value.text}" }
                         }
                     }
                 }
@@ -82,7 +77,7 @@ pub fn Header() -> Element {
                             class: "menu dropdown-content bg-base-100 w-52 rounded-b",
                             for (key , value) in links.iter().enumerate() {
                                 li { key: "{key}",
-                                    a { href: value.href, "{value.text}" }
+                                    Link { to: "{value.route}", "{value.text}" }
                                 }
                             }
                             li {

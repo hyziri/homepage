@@ -1,13 +1,27 @@
 use dioxus::prelude::*;
 
-use super::routes::guides::{
-    new_members::{index::NewMemberGuides, joining_autumn::JoiningAutumnGuide},
-    GuidesDirectory,
+use crate::web::{
+    components::guides::autumn::layout::AutumnGuideLayout,
+    routes::{
+        guides::{
+            autumn::{
+                highsec::{
+                    new_members::{AutumnHighsecGettingStartedGuide, AutumnHighsecNewMembersGuide},
+                    AutumnHighsecGuide,
+                },
+                nullsec::{
+                    new_members::{AutumnNullsecGettingStartedGuide, AutumnNullsecNewMembersGuide},
+                    AutumnNullsecGuide,
+                },
+                AutumnGuide,
+            },
+            GuidesDirectory,
+        },
+        join::JoinAutumn,
+        tools::AutumnTools,
+        Home, Layout, NotFound,
+    },
 };
-use super::routes::join::JoinAutumn;
-use super::routes::tools::AutumnTools;
-use super::routes::Layout;
-use super::routes::{Home, NotFound};
 
 #[rustfmt::skip]
 #[derive(Clone, Routable, Debug, PartialEq, serde::Serialize, serde::Deserialize)]
@@ -17,25 +31,61 @@ pub enum Route {
         #[route("/")]
         Home {},
 
-        #[route("/:..segments")]
-        NotFound { segments: Vec<String> },
-
         #[nest("/guides")]
 
             #[route("/")]
             GuidesDirectory {},
 
-            #[nest("/new-members")]
-                #[route("/")]
-                NewMemberGuides {},
+            #[nest("/autumn")]
+            #[layout(AutumnGuideLayout)]
 
-                #[route("/joining-autumn")]
-                JoiningAutumnGuide {},
+                #[route("/")]
+                AutumnGuide {},
+
+                #[nest("/nullsec")]
+
+                    #[route("/")]
+                    AutumnNullsecGuide {},
+
+                    #[nest("/new-members")]
+
+                        #[route("/")]
+                        AutumnNullsecNewMembersGuide {},
+
+                        #[route("/getting-started")]
+                        AutumnNullsecGettingStartedGuide {},
+
+                    #[end_nest]
+
+                #[end_nest]
+
+                #[nest("/highsec")]
+
+                    #[route("/")]
+                    AutumnHighsecGuide {},
+
+                    #[nest("/new-members")]
+
+                        #[route("/")]
+                        AutumnHighsecNewMembersGuide {},
+
+                        #[route("/getting-started")]
+                        AutumnHighsecGettingStartedGuide {},
+
+                    #[end_nest]
+
+                #[end_nest]
+
+            #[end_layout]
+            #[end_nest]
 
         #[end_nest]
 
         #[route("/tools")]
         AutumnTools {},
+
+        #[route("/:..segments")]
+        NotFound { segments: Vec<String> },
 
     #[end_layout]
 

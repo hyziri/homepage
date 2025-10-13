@@ -7,7 +7,13 @@ use dioxus_free_icons::{
 
 use crate::{
     model::stats::StatsDto,
-    web::constant::{CorpCardData, APPLICATIONS_URL, AUTUMN_ORDER_CORP_INFO, DISCORD_URL},
+    web::{
+        constant::{
+            app::{APPLICATIONS_URL, DISCORD_URL},
+            join::AUTUMN_ORDER_CORP_INFO,
+        },
+        model::join::CorpCardData,
+    },
 };
 
 #[cfg(feature = "web")]

@@ -1,4 +1,4 @@
-use crate::web::{model::breadcrumb::Breadcrumb, util::format::format_title};
+use crate::web::{model::breadcrumb::Breadcrumb, util::format::format_title, Route};
 
 /// Converts a URL path into segment pairs with a title & href for breadcrumbs
 ///
@@ -29,9 +29,11 @@ pub fn path_to_breadcrumbs(path: String) -> Vec<Breadcrumb> {
             accumulated.push('/');
             accumulated.push_str(segment);
 
+            let route: Route = accumulated.parse().unwrap();
+
             crumbs.push(Breadcrumb {
                 name: format_title(segment),
-                href: accumulated.clone(),
+                route,
             });
         }
         crumbs
