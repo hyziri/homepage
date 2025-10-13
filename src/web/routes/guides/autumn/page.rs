@@ -7,6 +7,7 @@ use crate::web::{
 
 static AUTUMN_GUIDE_META: GuideMeta = GuideMeta {
     route: &Route::AutumnGuide {},
+    name: "Autumn Guides",
     title: "Autumn Guides",
     description: "Guides related to the Autumn experience",
     date: "2025-10-10",

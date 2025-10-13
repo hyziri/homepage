@@ -6,9 +6,10 @@ use crate::web::{
 };
 
 static AUTUMN_HIGHSEC_GUIDE_META: GuideMeta = GuideMeta {
-    route: &Route::AutumnNullsecGuide {},
-    title: "Autumn Highsec Guides",
+    route: &Route::AutumnHighsecGuide {},
+    name: "Highsec Guides",
     description: "Guides related to the Autumn highsec experience",
+    title: "Autumn Highsec Guides",
     date: "2025-10-10",
     author: AUTHOR_HYZIRI,
 };

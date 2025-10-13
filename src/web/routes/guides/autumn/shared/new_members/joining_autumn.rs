@@ -7,7 +7,8 @@ use crate::web::{
 
 pub static AUTUMN_JOIN_GUIDE_META: GuideMeta = GuideMeta {
     route: &Route::AutumnJoinGuide {},
-    title: "Joining Autumn",
+    name: "Joining Autumn",
+    title: "How to Join Autumn",
     description:
         "How to join Autumn in highsec with Autumn Inc. or nullsec with The Order of Autumn",
     date: "2025-10-13",

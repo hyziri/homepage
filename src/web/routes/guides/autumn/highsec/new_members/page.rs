@@ -7,8 +7,9 @@ use crate::web::{
 
 pub static AUTUMN_HIGHSEC_NEW_MEMBERS_GUIDE_META: GuideMeta = GuideMeta {
     route: &Route::AutumnHighsecNewMembersGuide {},
-    title: "New Members",
+    name: "New Members",
     description: "Guides for new members of Autumn in highsec",
+    title: "Highsec New Member Guides",
     date: "2025-10-10",
     author: AUTHOR_HYZIRI,
 };

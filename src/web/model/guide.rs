@@ -16,8 +16,12 @@ pub struct GuideAuthor<'a> {
 #[derive(Clone, Copy, PartialEq)]
 pub struct GuideMeta<'a> {
     pub route: &'a Route,
-    pub title: &'a str,
+    // The name displayed in the sidebar
+    pub name: &'a str,
+    // Meta description displayed in embeds and search results
     pub description: &'a str,
+    // The title dispayed for the guide itself
+    pub title: &'a str,
     pub date: &'a str,
     pub author: GuideAuthor<'static>,
 }
