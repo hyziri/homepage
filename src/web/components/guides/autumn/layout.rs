@@ -2,7 +2,6 @@ use dioxus::prelude::*;
 
 use crate::web::{
     components::{guides::autumn::sidebar::AutumnGuideSidebar, Page, Section},
-    constant::app::ACTIVE_AUTUMN_GUIDE_SUBCATEGORY,
     model::guide::AutumnGuideSubcategory,
     Route,
 };
@@ -10,15 +9,19 @@ use crate::web::{
 pub fn AutumnGuideLayout() -> Element {
     let path = router().full_route_string();
 
-    if path.contains("/guides/autumn/highsec") {
-        *ACTIVE_AUTUMN_GUIDE_SUBCATEGORY.write() = AutumnGuideSubcategory::HIGHSEC
-    }
+    let subcategory = use_signal(|| {
+        if path.contains("/guides/autumn/highsec") {
+            AutumnGuideSubcategory::HIGHSEC
+        } else {
+            AutumnGuideSubcategory::NULLSEC
+        }
+    });
 
     rsx! (
         Page {
             Section {
                 class: "flex min-h-screen",
-                AutumnGuideSidebar { class: "w-1/5" }
+                AutumnGuideSidebar { class: "w-1/5", subcategory: subcategory }
                 Outlet::<Route> {}
             }
         }

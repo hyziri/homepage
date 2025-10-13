@@ -1,6 +1,6 @@
 use crate::web::Route;
 
-#[derive(PartialEq)]
+#[derive(PartialEq, Clone)]
 pub enum AutumnGuideSubcategory {
     NULLSEC,
     HIGHSEC,

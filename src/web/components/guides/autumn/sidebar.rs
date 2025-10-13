@@ -6,7 +6,6 @@ use dioxus::prelude::*;
 
 use crate::web::{
     components::guides::{category::GuideCategoryButton, sidebar::GuideSidebarCategory},
-    constant::app::ACTIVE_AUTUMN_GUIDE_SUBCATEGORY,
     model::guide::{AutumnGuideSubcategory, GuideCategory},
     routes::guides::autumn::{
         highsec::AUTUMN_HIGHSEC_GUIDE_CATEGORIES, nullsec::AUTUMN_NULLSEC_GUIDE_CATEGORIES,
@@ -15,10 +14,13 @@ use crate::web::{
 };
 
 #[component]
-pub fn AutumnGuideSidebar(class: Option<&'static str>) -> Element {
+pub fn AutumnGuideSidebar(
+    class: Option<&'static str>,
+    subcategory: Signal<AutumnGuideSubcategory>,
+) -> Element {
     let class: &str = if let Some(class) = class { class } else { "" };
 
-    let guide_categories: &[GuideCategory] = match *ACTIVE_AUTUMN_GUIDE_SUBCATEGORY.read() {
+    let category_entries: &[GuideCategory] = match *subcategory.read() {
         AutumnGuideSubcategory::NULLSEC => AUTUMN_NULLSEC_GUIDE_CATEGORIES,
         AutumnGuideSubcategory::HIGHSEC => AUTUMN_HIGHSEC_GUIDE_CATEGORIES,
     };
@@ -29,8 +31,8 @@ pub fn AutumnGuideSidebar(class: Option<&'static str>) -> Element {
                 Link { to: Route::AutumnGuide {}, class: "hover:text-primary",
                     h2 { class: "font-bold text-2xl", "Autumn Guides" }
                 }
-                NullsecHighsecGuideSwitch { }
-                if *ACTIVE_AUTUMN_GUIDE_SUBCATEGORY.read() == AutumnGuideSubcategory::NULLSEC {
+                NullsecHighsecGuideSwitch { subcategory: subcategory }
+                if *subcategory.read() == AutumnGuideSubcategory::NULLSEC {
                     Link { to: Route::AutumnNullsecGuide {}, class: "hover:text-primary",
                         h2 { class: "font-bold text-xl", "Autumn Nullsec Guides" }
                     }
@@ -40,7 +42,7 @@ pub fn AutumnGuideSidebar(class: Option<&'static str>) -> Element {
                     }
                 }
                 ul {
-                    for (key, category) in guide_categories.iter().enumerate() {
+                    for (key, category) in category_entries.iter().enumerate() {
                         li { key: "{key}",
                             GuideSidebarCategory { category: *category }
                         }
@@ -74,7 +76,7 @@ fn HighsecGuideCategoryButton() -> Element {
 }
 
 #[component]
-pub fn NullsecHighsecGuideSwitch() -> Element {
+pub fn NullsecHighsecGuideSwitch(subcategory: Signal<AutumnGuideSubcategory>) -> Element {
     let mut dropdown_active = use_signal(|| false);
 
     let nav = navigator();
@@ -87,7 +89,7 @@ pub fn NullsecHighsecGuideSwitch() -> Element {
                     let dropdown_status = *dropdown_active.read();
                     dropdown_active.set(!dropdown_status)
                 },
-                if *ACTIVE_AUTUMN_GUIDE_SUBCATEGORY.read() == AutumnGuideSubcategory::NULLSEC {
+                if *subcategory.read() == AutumnGuideSubcategory::NULLSEC {
                     NullsecGuideCategoryButton {}
                 } else {
                     HighsecGuideCategoryButton {}
@@ -96,10 +98,10 @@ pub fn NullsecHighsecGuideSwitch() -> Element {
             // Dropdown to alternate option
             if *dropdown_active.read() {
                 div { class: "absolute left-0 w-full z-50",
-                    if *ACTIVE_AUTUMN_GUIDE_SUBCATEGORY.read() == AutumnGuideSubcategory::NULLSEC {
+                    if *subcategory.read() == AutumnGuideSubcategory::NULLSEC {
                         button { class: "w-full hover:invert-[0.05]",
                             onclick: move |_| {
-                                *ACTIVE_AUTUMN_GUIDE_SUBCATEGORY.write() = AutumnGuideSubcategory::HIGHSEC;
+                                *subcategory.write() = AutumnGuideSubcategory::HIGHSEC;
                                 dropdown_active.set(false);
                                 nav.push(Route::AutumnHighsecGuide {});
                             },
@@ -108,7 +110,7 @@ pub fn NullsecHighsecGuideSwitch() -> Element {
                     } else {
                         button { class: "w-full hover:invert-[0.05]",
                             onclick: move |_| {
-                                *ACTIVE_AUTUMN_GUIDE_SUBCATEGORY.write() = AutumnGuideSubcategory::NULLSEC;
+                                *subcategory.write() = AutumnGuideSubcategory::NULLSEC;
                                 dropdown_active.set(false);
                                 nav.push(Route::AutumnNullsecGuide {});
                             },
