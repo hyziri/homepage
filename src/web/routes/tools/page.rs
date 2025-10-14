@@ -1,9 +1,8 @@
 use dioxus::prelude::*;
 use dioxus_document::{Meta, Title};
-use dioxus_free_icons::{
-    icons::fa_solid_icons::{FaBox, FaSatelliteDish},
-    Icon, IconShape,
-};
+use dioxus_free_icons::{icons::fa_brands_icons::FaRust, Icon, IconShape};
+
+use crate::web::components::{Page, Section};
 
 #[derive(PartialEq, Clone)]
 struct ToolCardData<T: IconShape + Clone + PartialEq + 'static> {
@@ -13,18 +12,11 @@ struct ToolCardData<T: IconShape + Clone + PartialEq + 'static> {
     link: &'static str,
 }
 
-static FEATURED_TOOLS: &[ToolCardData<FaBox>] = &[ToolCardData {
-    icon: FaBox,
+static DEVELOPER_TOOLS: &[ToolCardData<FaRust>] = &[ToolCardData {
+    icon: FaRust,
     name: "eve_esi",
     description: "ESI client for Rust",
     link: "https://github.com/hyziri/eve_esi",
-}];
-
-static INTEL_TOOLS: &[ToolCardData<FaSatelliteDish>] = &[ToolCardData {
-    icon: FaSatelliteDish,
-    name: "D-Scan",
-    description: "Parse local list & D-scans",
-    link: "/tools/dscan",
 }];
 
 #[component]
@@ -35,19 +27,16 @@ pub fn AutumnTools() -> Element {
             name: "description",
             content: "Tools for EVE Online, by Autumn."
         }
-        section { class: "flex items-center justify-center h-screen pt-[64px] pb-6",
-            div { class: "max-w-[1440px] px-6 w-full h-full flex flex-col",
-                h2 { class: "text-lg font-bold pl-4 pt-4", "Autumn Tools" }
-                ul { class: "px-4 pt-4 gap-4",
-                    for (key, card) in FEATURED_TOOLS.iter().enumerate() {
-                        li { key: "{key}", class: "lg:w-1/4 gap-4",
-                            ToolCard { icon: card.icon.clone(), name: card.name, description: card.description, link: card.link }
-                        }
-                    }
+        Page {
+            Section { class: "flex flex-col items-center gap-6",
+                h1 { class: "text-4xl font-bold",
+                    "Autumn Tools"
                 }
-                ul { class: "w-full",
-                    li { class: "lg:w-1/2 p-4",
-                        ToolCategory { name: "Intel", tools: INTEL_TOOLS.to_vec() }
+                div { class: "flex w-full",
+                    ul { class: "w-1/2",
+                        li { class: "p-4",
+                            ToolCategory { name: "Developer Tools", tools: DEVELOPER_TOOLS.to_vec() }
+                        }
                     }
                 }
             }
@@ -65,7 +54,7 @@ fn ToolCategory<T: IconShape + Clone + PartialEq + 'static>(
             h2 { class: "bg-accent text-white p-2 rounded font-bold", "{name}" }
             ul { class: "w-full pt-2",
                 for (key, tool) in tools.iter().enumerate() {
-                    li { key: "{key}", class: "lg:w-1/2 gap-4",
+                    li { key: "{key}", class: "w-full lg:w-1/2 gap-4",
                         ToolCard { icon: tool.icon.clone(), name: tool.name, description: tool.description, link: tool.link }
                     }
                 }
@@ -83,7 +72,7 @@ fn ToolCard<T: IconShape + Clone + PartialEq + 'static>(
     link: String,
 ) -> Element {
     rsx! {
-        a { href: "{link}", class: "w-full",
+        a { href: "{link}", class: "w-full hover:invert-[0.1]",
             div {
                 class: "flex gap-2 bg-base-300 rounded p-2",
                 div { class: "flex items-center justify-center",
