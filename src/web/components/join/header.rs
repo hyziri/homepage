@@ -22,22 +22,20 @@ pub fn JoinHeader() -> Element {
 
     rsx! {
         header { class: "fixed w-full flex justify-center bg-base-100 z-20 border-b border-base-200",
-            div { class: "max-w-[1440px] w-full flex items-center justify-between px-6 py-3",
-                ul { class: "flex gap-2 items-center",
-                    li {
-                        Link {
-                            class: "btn btn-ghost flex gap-2 items-center font-bold text-2xl",
-                            to: Route::Home {  },
-                            img {
-                                class: "w-12 h-12",
-                                alt: "Autumn Logo",
-                                src: AUTUMN_LOGO
-                            }
-                            "Autumn"
+            div { class: "navbar max-w-[1440px]",
+                ul { class: "navbar-start",
+                    Link {
+                        class: "btn btn-ghost flex gap-2 items-center font-bold text-2xl",
+                        to: Route::Home {  },
+                        img {
+                            class: "w-12 h-12",
+                            alt: "Autumn Logo",
+                            src: AUTUMN_LOGO
                         }
+                        "Autumn"
                     }
                 }
-                div {
+                div { class: "navbar-end",
                     ul { class: "hidden md:flex gap-2",
                         li {
                             AutumnDiscordButton { class: "btn-outline" }

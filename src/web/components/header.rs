@@ -32,25 +32,27 @@ pub fn Header() -> Element {
 
     rsx! {
         header { class: "fixed w-full flex justify-center bg-base-100 z-20 border-b border-base-200",
-            div { class: "max-w-[1440px] w-full flex items-center justify-between px-6 py-3",
-                Link {
-                    class: "btn btn-ghost flex gap-2 items-center font-bold text-2xl",
-                    to: Route::Home {  },
-                    img {
-                        class: "w-12 h-12",
-                        alt: "Autumn Logo",
-                        src: AUTUMN_LOGO
+            div { class: "navbar max-w-[1440px]",
+                div { class: "navbar-start",
+                    Link {
+                        class: "btn btn-ghost flex gap-2 items-center font-bold text-2xl",
+                        to: Route::Home {  },
+                        img {
+                            class: "w-12 h-12",
+                            alt: "Autumn Logo",
+                            src: AUTUMN_LOGO
+                        }
+                        "Autumn"
                     }
-                    "Autumn"
                 }
-                ul { class: "hidden md:flex items-center",
+                ul { class: "hidden md:flex navbar-center",
                     for (key , value) in links.iter().enumerate() {
                         li { key: "{key}",
                             Link { class: "btn btn-ghost", to: "{value.route}", "{value.text}" }
                         }
                     }
                 }
-                div {
+                div { class: "navbar-end",
                     ul { class: "hidden md:flex gap-2",
                         li {
                             AutumnDiscordButton { class: "btn-outline" }
