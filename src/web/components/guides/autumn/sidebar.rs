@@ -16,6 +16,24 @@ use crate::web::{
     Route,
 };
 
+#[cfg(feature = "web")]
+// Function to blur active element, used to close an open CSS focus-based dropdown on click
+fn blur_active_element() {
+    use wasm_bindgen::JsCast;
+    use web_sys::HtmlElement;
+
+    if let Some(win) = web_sys::window() {
+        if let Some(doc) = win.document() {
+            if let Some(active) = doc.active_element() {
+                if let Ok(el) = active.dyn_into::<HtmlElement>() {
+                    // ignore any error from blur
+                    let _ = el.blur();
+                }
+            }
+        }
+    }
+}
+
 #[component]
 pub fn AutumnGuideSidebar(
     class: Option<&'static str>,
@@ -58,48 +76,47 @@ pub fn AutumnGuideSidebar(
 
 #[component]
 pub fn NullsecHighsecGuideSwitch(subcategory: Signal<AutumnGuideSubcategory>) -> Element {
-    let mut dropdown_active = use_signal(|| false);
-
     let nav = navigator();
 
     rsx! (
-        div {
+        div { class: "dropdown",
             // Button to toggle dropdown
             button { class: "w-full hover:invert-[0.05]",
-                onclick: move |_| {
-                    let dropdown_status = *dropdown_active.read();
-                    dropdown_active.set(!dropdown_status)
-                },
+                tabindex: 0,
+                role: "button",
                 if *subcategory.read() == AutumnGuideSubcategory::NULLSEC {
                     NullsecGuideCategoryButton {}
                 } else {
                     HighsecGuideCategoryButton {}
                 }
             }
-            // Dropdown to alternate option
-            if *dropdown_active.read() {
-                div { class: "absolute left-0 w-full z-50",
-                    if *subcategory.read() == AutumnGuideSubcategory::NULLSEC {
-                        button { class: "w-full hover:invert-[0.05]",
-                            onclick: move |_| {
-                                *subcategory.write() = AutumnGuideSubcategory::HIGHSEC;
-                                dropdown_active.set(false);
-                                nav.push(Route::AutumnHighsecGuide {});
-                            },
-                            HighsecGuideCategoryButton {}
-                        }
-                    } else {
-                        button { class: "w-full hover:invert-[0.05]",
-                            onclick: move |_| {
-                                *subcategory.write() = AutumnGuideSubcategory::NULLSEC;
-                                dropdown_active.set(false);
-                                nav.push(Route::AutumnNullsecGuide {});
-                            },
-                            NullsecGuideCategoryButton {}
-                        }
+            div { class: "dropdown-content left-0 w-full z-50",
+                tabindex: 0,
+                if *subcategory.read() == AutumnGuideSubcategory::NULLSEC {
+                    button { class: "w-full hover:invert-[0.05]",
+                        onclick: move |_| {
+                            #[cfg(feature = "web")]
+                            blur_active_element();
+
+                            *subcategory.write() = AutumnGuideSubcategory::HIGHSEC;
+                            nav.push(Route::AutumnHighsecGuide {});
+
+                        },
+                        HighsecGuideCategoryButton {}
+                    }
+                } else {
+                    button { class: "w-full hover:invert-[0.05]",
+                        onclick: move |_| {
+                            #[cfg(feature = "web")]
+                            blur_active_element();
+
+                            *subcategory.write() = AutumnGuideSubcategory::NULLSEC;
+                            nav.push(Route::AutumnNullsecGuide {});
+                        },
+                        NullsecGuideCategoryButton {}
                     }
                 }
             }
-        }
+    }
     )
 }
