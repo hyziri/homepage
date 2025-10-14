@@ -28,7 +28,7 @@ pub fn AutumnJoinGuide() -> Element {
             meta: AUTUMN_JOIN_GUIDE_META,
             outline: guide_outline,
             h2 { id: "{joining_autumn_in_highsec.id}", "{joining_autumn_in_highsec.title}" }
-            a { href: "https://evemaps.dotlan.net/corp/Autumn_Inc.", class: "no-underline hover:invert-[0.1]",
+            a { href: "https://evemaps.dotlan.net/corp/Autumn_Inc.", class: "not-prose hover:invert-[0.1]",
                 div  { class: "flex items-center gap-2 shadow w-72 h-24 rounded font-bold p-2",
                     img {
                         src: "https://images.evetech.net/corporations/98812612/logo?size=64",
