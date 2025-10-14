@@ -7,8 +7,9 @@ use crate::web::{
 
 pub static AUTUMN_NULLSEC_GETTING_STARTED_GUIDE_META: GuideMeta = GuideMeta {
     route: &Route::AutumnNullsecGettingStartedGuide {},
-    title: "Getting Started",
+    name: "Getting Started",
     description: "Getting started in nullsec with Autumn",
+    title: "Nullsec Getting Started Guide",
     date: "2025-10-10",
     author: AUTHOR_HYZIRI,
 };

@@ -5,8 +5,10 @@
 use dioxus::prelude::*;
 
 use crate::web::{
-    components::guides::{category::GuideCategoryButton, sidebar::GuideSidebarCategory},
-    constant::app::ACTIVE_AUTUMN_GUIDE_SUBCATEGORY,
+    components::guides::{
+        autumn::button::category::{HighsecGuideCategoryButton, NullsecGuideCategoryButton},
+        sidebar::GuideSidebarCategory,
+    },
     model::guide::{AutumnGuideSubcategory, GuideCategory},
     routes::guides::autumn::{
         highsec::AUTUMN_HIGHSEC_GUIDE_CATEGORIES, nullsec::AUTUMN_NULLSEC_GUIDE_CATEGORIES,
@@ -14,11 +16,32 @@ use crate::web::{
     Route,
 };
 
+#[cfg(feature = "web")]
+// Function to blur active element, used to close an open CSS focus-based dropdown on click
+fn blur_active_element() {
+    use wasm_bindgen::JsCast;
+    use web_sys::HtmlElement;
+
+    if let Some(win) = web_sys::window() {
+        if let Some(doc) = win.document() {
+            if let Some(active) = doc.active_element() {
+                if let Ok(el) = active.dyn_into::<HtmlElement>() {
+                    // ignore any error from blur
+                    let _ = el.blur();
+                }
+            }
+        }
+    }
+}
+
 #[component]
-pub fn AutumnGuideSidebar(class: Option<&'static str>) -> Element {
+pub fn AutumnGuideSidebar(
+    class: Option<&'static str>,
+    subcategory: Signal<AutumnGuideSubcategory>,
+) -> Element {
     let class: &str = if let Some(class) = class { class } else { "" };
 
-    let guide_categories: &[GuideCategory] = match *ACTIVE_AUTUMN_GUIDE_SUBCATEGORY.read() {
+    let category_entries: &[GuideCategory] = match *subcategory.read() {
         AutumnGuideSubcategory::NULLSEC => AUTUMN_NULLSEC_GUIDE_CATEGORIES,
         AutumnGuideSubcategory::HIGHSEC => AUTUMN_HIGHSEC_GUIDE_CATEGORIES,
     };
@@ -29,8 +52,8 @@ pub fn AutumnGuideSidebar(class: Option<&'static str>) -> Element {
                 Link { to: Route::AutumnGuide {}, class: "hover:text-primary",
                     h2 { class: "font-bold text-2xl", "Autumn Guides" }
                 }
-                NullsecHighsecGuideSwitch { }
-                if *ACTIVE_AUTUMN_GUIDE_SUBCATEGORY.read() == AutumnGuideSubcategory::NULLSEC {
+                NullsecHighsecGuideSwitch { subcategory: subcategory }
+                if *subcategory.read() == AutumnGuideSubcategory::NULLSEC {
                     Link { to: Route::AutumnNullsecGuide {}, class: "hover:text-primary",
                         h2 { class: "font-bold text-xl", "Autumn Nullsec Guides" }
                     }
@@ -40,7 +63,7 @@ pub fn AutumnGuideSidebar(class: Option<&'static str>) -> Element {
                     }
                 }
                 ul {
-                    for (key, category) in guide_categories.iter().enumerate() {
+                    for (key, category) in category_entries.iter().enumerate() {
                         li { key: "{key}",
                             GuideSidebarCategory { category: *category }
                         }
@@ -52,71 +75,48 @@ pub fn AutumnGuideSidebar(class: Option<&'static str>) -> Element {
 }
 
 #[component]
-fn NullsecGuideCategoryButton() -> Element {
-    rsx!(GuideCategoryButton {
-        title: "Autumn Nullsec",
-        description: "The Order of Autumn",
-        image: "https://images.evetech.net/corporations/98785281/logo?size=64".to_string(),
-        class: "bg-gradient-to-br from-orange-800 to-amber-800 w-full p-2 text-white rounded",
-        image_div_class: "bg-amber-900 w-16"
-    })
-}
-
-#[component]
-fn HighsecGuideCategoryButton() -> Element {
-    rsx!(GuideCategoryButton {
-        title: "Autumn Highsec",
-        description: "Autumn Inc.",
-        image: "https://images.evetech.net/corporations/98812612/logo?size=64".to_string(),
-        class: "bg-gradient-to-br from-sky-800 to-cyan-800 w-full p-2 text-white rounded",
-        image_div_class: "bg-cyan-900 w-16"
-    })
-}
-
-#[component]
-pub fn NullsecHighsecGuideSwitch() -> Element {
-    let mut dropdown_active = use_signal(|| false);
-
+pub fn NullsecHighsecGuideSwitch(subcategory: Signal<AutumnGuideSubcategory>) -> Element {
     let nav = navigator();
 
     rsx! (
-        div {
+        div { class: "dropdown",
             // Button to toggle dropdown
-            button { class: "w-full hover:invert-[0.05]",
-                onclick: move |_| {
-                    let dropdown_status = *dropdown_active.read();
-                    dropdown_active.set(!dropdown_status)
-                },
-                if *ACTIVE_AUTUMN_GUIDE_SUBCATEGORY.read() == AutumnGuideSubcategory::NULLSEC {
+            button { class: "w-full hover:invert-[0.05] cursor-pointer",
+                tabindex: 0,
+                role: "button",
+                if *subcategory.read() == AutumnGuideSubcategory::NULLSEC {
                     NullsecGuideCategoryButton {}
                 } else {
                     HighsecGuideCategoryButton {}
                 }
             }
-            // Dropdown to alternate option
-            if *dropdown_active.read() {
-                div { class: "absolute left-0 w-full z-50",
-                    if *ACTIVE_AUTUMN_GUIDE_SUBCATEGORY.read() == AutumnGuideSubcategory::NULLSEC {
-                        button { class: "w-full hover:invert-[0.05]",
-                            onclick: move |_| {
-                                *ACTIVE_AUTUMN_GUIDE_SUBCATEGORY.write() = AutumnGuideSubcategory::HIGHSEC;
-                                dropdown_active.set(false);
-                                nav.push(Route::AutumnHighsecGuide {});
-                            },
-                            HighsecGuideCategoryButton {}
-                        }
-                    } else {
-                        button { class: "w-full hover:invert-[0.05]",
-                            onclick: move |_| {
-                                *ACTIVE_AUTUMN_GUIDE_SUBCATEGORY.write() = AutumnGuideSubcategory::NULLSEC;
-                                dropdown_active.set(false);
-                                nav.push(Route::AutumnNullsecGuide {});
-                            },
-                            NullsecGuideCategoryButton {}
-                        }
+            div { class: "dropdown-content left-0 w-full z-50",
+                tabindex: 0,
+                if *subcategory.read() == AutumnGuideSubcategory::NULLSEC {
+                    button { class: "w-full hover:invert-[0.05] cursor-pointer",
+                        onclick: move |_| {
+                            #[cfg(feature = "web")]
+                            blur_active_element();
+
+                            *subcategory.write() = AutumnGuideSubcategory::HIGHSEC;
+                            nav.push(Route::AutumnHighsecGuide {});
+
+                        },
+                        HighsecGuideCategoryButton {}
+                    }
+                } else {
+                    button { class: "w-full hover:invert-[0.05] cursor-pointer",
+                        onclick: move |_| {
+                            #[cfg(feature = "web")]
+                            blur_active_element();
+
+                            *subcategory.write() = AutumnGuideSubcategory::NULLSEC;
+                            nav.push(Route::AutumnNullsecGuide {});
+                        },
+                        NullsecGuideCategoryButton {}
                     }
                 }
             }
-        }
+    }
     )
 }

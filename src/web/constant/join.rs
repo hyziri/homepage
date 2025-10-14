@@ -11,6 +11,13 @@ pub const AUTUMN_ORDER_CORP_INFO: CorpCardData = CorpCardData {
     cta_text: "Begin Your Journey in Nullsec",
 };
 
+pub const AUTUMN_INC_CORP_INFO: CorpCardData = CorpCardData {
+    name: "Autumn Inc.",
+    corporation_id: 98812612,
+    location: "Highsec",
+    cta_text: "Begin Your Journey in Highsec",
+};
+
 pub const FAQ: &[FAQEntry] = &[
     FAQEntry {
         question: "What is Autumn's main focus?",

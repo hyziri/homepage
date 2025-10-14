@@ -1,14 +1,8 @@
 use dioxus::prelude::*;
-use dioxus_free_icons::icons::fa_brands_icons::FaDiscord;
-use dioxus_free_icons::Icon;
 use manganis::Asset;
 
 use crate::web::{
-    constant::{
-        app::{APPLICATIONS_URL, DISCORD_URL},
-        join::EVE_LEGAL_STATEMENT,
-    },
-    Route,
+    components::button::discord::AutumnDiscordButton, constant::join::EVE_LEGAL_STATEMENT, Route,
 };
 
 #[component]
@@ -42,16 +36,13 @@ pub fn JoinFooter() -> Element {
                 nav { class: "w-full",
                     ul { class: "flex w-full",
                         li { class: "w-1/2 pr-1 flex justify-end",
-                            a {
-                                href: DISCORD_URL,
-                                class: "btn btn-outline px-2 md:px-4",
-                                Icon { width: 20, height: 20, icon: FaDiscord }
-                                "Autumn Discord"
+                            AutumnDiscordButton {
+                                class: "btn-outline px-2 md:px-4"
                             }
                         }
                         li { class: "w-1/2 pl-1 flex justify-start",
-                            a {
-                                href: APPLICATIONS_URL,
+                            Link {
+                                to: Route::AutumnJoinGuide {},
                                 class: "btn btn-primary px-2 md:px-4",
                                 "Begin Your Journey"
                             }

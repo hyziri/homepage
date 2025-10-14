@@ -30,7 +30,7 @@ pub fn GuideCategoryButton(
                 }
             }
             div {
-                h2 { class: "font-bold", "{title}" }
+                p { class: "font-bold", "{title}" }
                 p { "{description}" }
             }
         }

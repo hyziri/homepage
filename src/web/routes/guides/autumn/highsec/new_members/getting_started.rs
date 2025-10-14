@@ -7,8 +7,9 @@ use crate::web::{
 
 pub static AUTUMN_HIGHSEC_GETTING_STARTED_GUIDE_META: GuideMeta = GuideMeta {
     route: &Route::AutumnHighsecGettingStartedGuide {},
-    title: "Getting Started",
+    name: "Getting Started",
     description: "Getting started in highsec with Autumn",
+    title: "Highsec Getting Started Guide",
     date: "2025-10-10",
     author: AUTHOR_HYZIRI,
 };
