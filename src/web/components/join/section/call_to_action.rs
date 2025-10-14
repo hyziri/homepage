@@ -9,7 +9,10 @@ use crate::{
     model::stats::StatsDto,
     web::{
         components::button::discord::AutumnDiscordButton,
-        constant::{app::DISCORD_URL, join::AUTUMN_ORDER_CORP_INFO},
+        constant::{
+            app::DISCORD_URL,
+            join::{AUTUMN_INC_CORP_INFO, AUTUMN_ORDER_CORP_INFO},
+        },
         model::join::CorpCardData,
         Route,
     },
@@ -35,7 +38,7 @@ pub fn CallToAction() -> Element {
 
     fn CorporationCard(props: CorporationCardProps) -> Element {
         rsx!(
-            div { class: "card card-compact shadow h-96 min-w-64 max-w-72",
+            div { class: "card card-compact shadow h-96 min-w-64 max-w-80",
                 div { class: "card-body flex flex-col justify-between items-center text-center",
                     img {
                         class: "avatar w-24 h-24",
@@ -67,11 +70,14 @@ pub fn CallToAction() -> Element {
 
     let stats = use_signal(Vec::<StatsDto>::new);
     let autumn_order_stats = use_signal(StatsDto::default);
+    let autumn_inc_stats = use_signal(StatsDto::default);
 
     #[cfg(feature = "web")]
     let mut stats = stats;
     #[cfg(feature = "web")]
     let mut autumn_order_stats = autumn_order_stats;
+    #[cfg(feature = "web")]
+    let mut autumn_inc_stats = autumn_inc_stats;
 
     #[cfg(feature = "web")]
     {
@@ -82,7 +88,17 @@ pub fn CallToAction() -> Element {
                 autumn_order_stats.set(
                     stats_data
                         .iter()
-                        .find(|x| x.corporation_id == 98785281)
+                        .find(|x| x.corporation_id == AUTUMN_ORDER_CORP_INFO.corporation_id)
+                        .into_iter()
+                        .max_by(|a, b| a.date.cmp(&b.date))
+                        .cloned()
+                        .unwrap_or_default(),
+                );
+
+                autumn_inc_stats.set(
+                    stats_data
+                        .iter()
+                        .find(|x| x.corporation_id == AUTUMN_INC_CORP_INFO.corporation_id)
                         .into_iter()
                         .max_by(|a, b| a.date.cmp(&b.date))
                         .cloned()
@@ -126,11 +142,14 @@ pub fn CallToAction() -> Element {
 
                     div { class: "w-full xl:w-1/2",
                         h2 { class: "font-bold text-center text-xl md:text-2xl py-6",
-                            "Join The Order of Autumn in Nullsec"
+                            "Join Autumn in Nullsec or Highsec"
                         }
                         ul { class: "flex flex-wrap justify-center",
                             li { class: "py-2 px-8 md:pr-2 md:py-0",
                                 CorporationCard { corporation: &AUTUMN_ORDER_CORP_INFO, stats: autumn_order_stats() }
+                            }
+                            li { class: "py-2 px-8 md:pr-2 md:py-0",
+                                CorporationCard { corporation: &AUTUMN_INC_CORP_INFO, stats: autumn_inc_stats() }
                             }
                         }
                     }
