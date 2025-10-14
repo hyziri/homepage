@@ -126,6 +126,13 @@ pub fn AutumnGuide() -> Element {
                     }
                 }
             }
+            p {
+                "The nullsec guides are more in-depth as the experience in The Order of Autumn is more involved due to the nature of nullsec space and the coordination required to maintain sovereignty."
+            }
+            p {
+                "The highsec guides cover the basics of joining the corporation & getting moved to us for easier participation in corporation activities. Beyond that the corporation is fairly hands off for
+                you to explore your own interest in EVE and grow at pace you prefer before you decide to finally make the move to nullsec."
+            }
         }
     }
 }
