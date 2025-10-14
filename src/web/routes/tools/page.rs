@@ -33,7 +33,7 @@ pub fn AutumnTools() -> Element {
                     "Autumn Tools"
                 }
                 div { class: "flex w-full",
-                    ul { class: "w-1/2",
+                    ul { class: "w-full lg:w-1/2",
                         li { class: "p-4",
                             ToolCategory { name: "Developer Tools", tools: DEVELOPER_TOOLS.to_vec() }
                         }
