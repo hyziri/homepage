@@ -25,7 +25,7 @@ pub fn GuideAuthorSegment(author: GuideAuthor<'static>) -> Element {
                         }
                     }
                     div {
-                        p { {author.character_name} }
+                        b { {author.character_name} }
                         p { {author.title} }
                     }
                 }
