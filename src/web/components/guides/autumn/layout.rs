@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 
 use crate::web::{
     components::{guides::autumn::sidebar::AutumnGuideSidebar, Page, Section},
-    model::guide::AutumnGuideSubcategory,
+    model::guide::{AutumnGuideState, AutumnGuideSubcategory},
     Route,
 };
 
@@ -16,6 +16,8 @@ pub fn AutumnGuideLayout() -> Element {
             AutumnGuideSubcategory::NULLSEC
         }
     });
+
+    use_context_provider(|| AutumnGuideState { subcategory });
 
     rsx! (
         Page {

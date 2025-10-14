@@ -1,9 +1,16 @@
+use dioxus::prelude::*;
+
 use crate::web::Route;
 
 #[derive(PartialEq, Clone)]
 pub enum AutumnGuideSubcategory {
     NULLSEC,
     HIGHSEC,
+}
+
+#[derive(Clone, Copy)]
+pub struct AutumnGuideState {
+    pub subcategory: Signal<AutumnGuideSubcategory>,
 }
 
 #[derive(Clone, PartialEq, Copy)]

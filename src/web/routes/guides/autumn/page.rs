@@ -6,7 +6,7 @@ use crate::web::{
         guide::Guide,
     },
     constant::guide::author::AUTHOR_HYZIRI,
-    model::guide::{GuideMeta, GuideOutline},
+    model::guide::{AutumnGuideState, AutumnGuideSubcategory, GuideMeta, GuideOutline},
     Route,
 };
 
@@ -25,6 +25,8 @@ pub fn AutumnGuide() -> Element {
     let guide_categories = GuideOutline::new("Guide Categories");
 
     let guide_outline = vec![about_autumn.clone(), guide_categories.clone()];
+
+    let nav = use_navigator();
 
     rsx! {
         Guide {
@@ -98,16 +100,28 @@ pub fn AutumnGuide() -> Element {
                 "{guide_categories.title}"
             }
             p {
-                "Our guides are divided into two categories, the nullsec guides specific to The Order of Autumn & the highsec guides specific to Autumn Inc."
+                b { "Our guides are divided into two categories" }
+            }
+            ul {
+                li { "Nullsec guides specific to The Order of Autumn" }
+                li { "Highsec guides specific to Autumn Inc." }
             }
             ul { class: "not-prose flex flex-wrap gap-2 justify-center list-none",
                 li { class: "w-72",
-                    Link { to: Route::AutumnNullsecGuide {}, class: "no-underline hover:invert-[0.05]",
+                    button { class: "hover:invert-[0.05] w-full",
+                        onclick: move |_| {
+                            nav.push(Route::AutumnNullsecGuide {});
+                            consume_context::<AutumnGuideState>().subcategory.set(AutumnGuideSubcategory::NULLSEC);
+                        },
                         NullsecGuideCategoryButton {}
                     }
                 }
                 li { class: "w-72",
-                    Link { to: Route::AutumnHighsecGuide {}, class: "no-underline hover:invert-[0.05]",
+                    button { class: "hover:invert-[0.05] w-full",
+                        onclick: move |_| {
+                            nav.push(Route::AutumnHighsecGuide {});
+                            consume_context::<AutumnGuideState>().subcategory.set(AutumnGuideSubcategory::HIGHSEC);
+                        },
                         HighsecGuideCategoryButton {}
                     }
                 }
