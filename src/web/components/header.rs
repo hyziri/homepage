@@ -1,7 +1,8 @@
 use dioxus::prelude::*;
-use dioxus_free_icons::icons::{fa_brands_icons::FaDiscord, fa_solid_icons::FaBars};
+use dioxus_free_icons::icons::fa_solid_icons::FaBars;
 use dioxus_free_icons::Icon;
 
+use crate::web::components::button::discord::AutumnDiscordButton;
 use crate::web::constant::app::DISCORD_URL;
 use crate::web::model::app::HeaderLink;
 use crate::web::Route;
@@ -52,10 +53,7 @@ pub fn Header() -> Element {
                 div {
                     ul { class: "hidden md:flex gap-2",
                         li {
-                            a {  class: "btn btn-outline", href: DISCORD_URL,
-                                Icon { width: 24, height: 24, icon: FaDiscord }
-                                "Autumn Discord"
-                            }
+                            AutumnDiscordButton { class: "btn-outline" }
                         }
                         li {
                             Link {

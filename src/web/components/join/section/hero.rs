@@ -1,9 +1,10 @@
 use dioxus::prelude::*;
-use dioxus_free_icons::icons::{fa_brands_icons::FaDiscord, fa_solid_icons::FaChevronDown};
+use dioxus_free_icons::icons::fa_solid_icons::FaChevronDown;
 use dioxus_free_icons::Icon;
 use manganis::Asset;
 
-use crate::web::constant::app::{APPLICATIONS_URL, DISCORD_URL};
+use crate::web::components::button::discord::AutumnDiscordButton;
+use crate::web::constant::app::APPLICATIONS_URL;
 
 #[component]
 pub fn Hero() -> Element {
@@ -39,10 +40,7 @@ pub fn Hero() -> Element {
                     }
                     ul { class: "flex gap-2",
                         li {
-                            a { href: DISCORD_URL, class: "btn px-2 md:px-4",
-                                Icon { width: 24, height: 24, icon: FaDiscord }
-                                "Autumn Discord"
-                            }
+                            AutumnDiscordButton { class: "px-2 md:px-4"}
                         }
                         li {
                             a {

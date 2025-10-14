@@ -1,3 +1,4 @@
+pub mod button;
 pub mod footer;
 pub mod guides;
 pub mod header;
