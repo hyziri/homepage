@@ -5,7 +5,7 @@ pub fn Page(class: Option<&'static str>, children: Element) -> Element {
     let class: &str = if let Some(class) = class { class } else { "" };
 
     rsx!(
-        div { class: "min-h-screen pt-[64px] flex justify-center {class}",
+        div { class: "min-h-screen pt-[64px] flex flex-col items-center {class}",
             {children}
         }
     )

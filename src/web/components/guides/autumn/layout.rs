@@ -22,7 +22,7 @@ pub fn AutumnGuideLayout() -> Element {
     rsx! (
         Page {
             Section {
-                class: "flex min-h-screen",
+                class: "flex w-full min-h-screen",
                 AutumnGuideSidebar { class: "w-1/5", subcategory: subcategory }
                 Outlet::<Route> {}
             }

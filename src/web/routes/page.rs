@@ -11,7 +11,8 @@ pub fn Home() -> Element {
             name: "description",
             content: "The Order of Autumn is an EVE Online corporation part of Black Rose alliance & Phoenix Coalition. We are real life first & new player focused with an emphasis on organization, community, and high quality IT infrastructure."
         }
-        Page { class: "flex items-center justify-center bg-gradient-to-br from-orange-950 to-amber-800",
+        // Set pt-0 so we can set it in Hero instead
+        Page { class: "!pt-0",
             HeroSection {}
         }
     }
