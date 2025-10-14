@@ -8,11 +8,10 @@ use dioxus_free_icons::{
 use crate::{
     model::stats::StatsDto,
     web::{
-        constant::{
-            app::{APPLICATIONS_URL, DISCORD_URL},
-            join::AUTUMN_ORDER_CORP_INFO,
-        },
+        components::button::discord::AutumnDiscordButton,
+        constant::{app::DISCORD_URL, join::AUTUMN_ORDER_CORP_INFO},
         model::join::CorpCardData,
+        Route,
     },
 };
 
@@ -57,7 +56,8 @@ pub fn CallToAction() -> Element {
                             p { "{props.stats.member_count}" }
                         }
                     }
-                    a { href: APPLICATIONS_URL, class: "btn btn-primary",
+                    Link {
+                        to: Route::AutumnJoinGuide {}, class: "btn btn-primary",
                         { props.corporation.cta_text }
                     }
                 }
@@ -143,10 +143,7 @@ pub fn CallToAction() -> Element {
                         div { class: "flex flex-col gap-2",
                             h3 { class: "font-bold text-center text-lg", "Reach us Through Either" }
                             div { class: "flex justify-center",
-                                a { href: DISCORD_URL, class: "btn btn-outline",
-                                    Icon { width: 24, height: 24, icon: FaDiscord }
-                                    "The Autumn Discord"
-                                }
+                                AutumnDiscordButton { class: "btn-outline" }
                             }
                             p {
                                 "The "
@@ -167,15 +164,20 @@ pub fn CallToAction() -> Element {
                         }
                         ul { class: "flex flex-col gap-2 px-2 sm:px-10",
                             li {
-                                "1. Submit your application at "
-                                a {
-                                    class: "link-primary",
-                                    href: APPLICATIONS_URL,
-                                    { APPLICATIONS_URL }
+                                "1. Submit your application by following the "
+                                Link {
+                                    to: Route::AutumnJoinGuide {},
+                                    class: "link-primary underline",
+                                    { "how to join guide" }
                                 }
+                                "."
                             }
                             li {
-                                "2. Wait for a recruiter to review your application, come chat with us in Discord or Autumn Public while you wait!"
+                                "2. Wait for a recruiter to review your application, come chat with us in "
+                                a { href: DISCORD_URL, class: "link-primary underline",
+                                    "Discord"
+                                }
+                                " or the in-game channel Autumn Public while you wait!"
                             }
                             li {
                                 "3. Accept your invitation, most applications are reviewed in less than 24 hours."

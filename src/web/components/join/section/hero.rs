@@ -4,7 +4,7 @@ use dioxus_free_icons::Icon;
 use manganis::Asset;
 
 use crate::web::components::button::discord::AutumnDiscordButton;
-use crate::web::constant::app::APPLICATIONS_URL;
+use crate::web::Route;
 
 #[component]
 pub fn Hero() -> Element {
@@ -43,8 +43,8 @@ pub fn Hero() -> Element {
                             AutumnDiscordButton { class: "px-2 md:px-4"}
                         }
                         li {
-                            a {
-                                href: APPLICATIONS_URL,
+                            Link {
+                                to: Route::AutumnJoinGuide {},
                                 class: "btn px-2 md:px-4 btn-primary",
                                 "Begin Your Journey"
                             }
