@@ -24,6 +24,8 @@ chrono = { version = "0.4.42", features = ["serde"] }
 
 # === Web ===
 reqwasm = { version = "0.5.0", optional = true }
+web-sys = { version = "0.3.81", features = [], optional = true }
+wasm-bindgen = { version = "0.2.104", optional = true }
 
 # === Server ===
 migration = { path = "migration", optional = true }
@@ -52,7 +54,7 @@ serde_json = "1.0.145"
 
 [features]
 default = []
-web = ["dioxus/web", "reqwasm"]
+web = ["dioxus/web", "reqwasm", "web-sys", "wasm-bindgen"]
 server = [
     "dioxus/server",
     "migration",

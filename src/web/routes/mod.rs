@@ -1,4 +1,5 @@
 pub mod error;
+pub mod guides;
 pub mod join;
 pub mod layout;
 pub mod page;

@@ -7,7 +7,15 @@ use dioxus_free_icons::{
 
 use crate::{
     model::stats::StatsDto,
-    web::constant::{CorpCardData, APPLICATIONS_URL, AUTUMN_ORDER_CORP_INFO, DISCORD_URL},
+    web::{
+        components::button::discord::AutumnDiscordButton,
+        constant::{
+            app::DISCORD_URL,
+            join::{AUTUMN_INC_CORP_INFO, AUTUMN_ORDER_CORP_INFO},
+        },
+        model::join::CorpCardData,
+        Route,
+    },
 };
 
 #[cfg(feature = "web")]
@@ -30,7 +38,7 @@ pub fn CallToAction() -> Element {
 
     fn CorporationCard(props: CorporationCardProps) -> Element {
         rsx!(
-            div { class: "card card-compact shadow h-96 min-w-64 max-w-72",
+            div { class: "card card-compact shadow h-96 min-w-64 max-w-80",
                 div { class: "card-body flex flex-col justify-between items-center text-center",
                     img {
                         class: "avatar w-24 h-24",
@@ -51,7 +59,8 @@ pub fn CallToAction() -> Element {
                             p { "{props.stats.member_count}" }
                         }
                     }
-                    a { href: APPLICATIONS_URL, class: "btn btn-primary",
+                    Link {
+                        to: Route::AutumnJoinGuide {}, class: "btn btn-primary",
                         { props.corporation.cta_text }
                     }
                 }
@@ -61,11 +70,14 @@ pub fn CallToAction() -> Element {
 
     let stats = use_signal(Vec::<StatsDto>::new);
     let autumn_order_stats = use_signal(StatsDto::default);
+    let autumn_inc_stats = use_signal(StatsDto::default);
 
     #[cfg(feature = "web")]
     let mut stats = stats;
     #[cfg(feature = "web")]
     let mut autumn_order_stats = autumn_order_stats;
+    #[cfg(feature = "web")]
+    let mut autumn_inc_stats = autumn_inc_stats;
 
     #[cfg(feature = "web")]
     {
@@ -76,7 +88,17 @@ pub fn CallToAction() -> Element {
                 autumn_order_stats.set(
                     stats_data
                         .iter()
-                        .find(|x| x.corporation_id == 98785281)
+                        .find(|x| x.corporation_id == AUTUMN_ORDER_CORP_INFO.corporation_id)
+                        .into_iter()
+                        .max_by(|a, b| a.date.cmp(&b.date))
+                        .cloned()
+                        .unwrap_or_default(),
+                );
+
+                autumn_inc_stats.set(
+                    stats_data
+                        .iter()
+                        .find(|x| x.corporation_id == AUTUMN_INC_CORP_INFO.corporation_id)
                         .into_iter()
                         .max_by(|a, b| a.date.cmp(&b.date))
                         .cloned()
@@ -120,11 +142,14 @@ pub fn CallToAction() -> Element {
 
                     div { class: "w-full xl:w-1/2",
                         h2 { class: "font-bold text-center text-xl md:text-2xl py-6",
-                            "Join The Order of Autumn in Nullsec"
+                            "Join Autumn in Nullsec or Highsec"
                         }
                         ul { class: "flex flex-wrap justify-center",
                             li { class: "py-2 px-8 md:pr-2 md:py-0",
                                 CorporationCard { corporation: &AUTUMN_ORDER_CORP_INFO, stats: autumn_order_stats() }
+                            }
+                            li { class: "py-2 px-8 md:pr-2 md:py-0",
+                                CorporationCard { corporation: &AUTUMN_INC_CORP_INFO, stats: autumn_inc_stats() }
                             }
                         }
                     }
@@ -137,10 +162,7 @@ pub fn CallToAction() -> Element {
                         div { class: "flex flex-col gap-2",
                             h3 { class: "font-bold text-center text-lg", "Reach us Through Either" }
                             div { class: "flex justify-center",
-                                a { href: DISCORD_URL, class: "btn btn-outline",
-                                    Icon { width: 24, height: 24, icon: FaDiscord }
-                                    "The Autumn Discord"
-                                }
+                                AutumnDiscordButton { class: "btn-outline" }
                             }
                             p {
                                 "The "
@@ -161,15 +183,20 @@ pub fn CallToAction() -> Element {
                         }
                         ul { class: "flex flex-col gap-2 px-2 sm:px-10",
                             li {
-                                "1. Submit your application at "
-                                a {
-                                    class: "link-primary",
-                                    href: APPLICATIONS_URL,
-                                    { APPLICATIONS_URL }
+                                "1. Submit your application by following the "
+                                Link {
+                                    to: Route::AutumnJoinGuide {},
+                                    class: "link-primary underline",
+                                    { "how to join guide" }
                                 }
+                                "."
                             }
                             li {
-                                "2. Wait for a recruiter to review your application, come chat with us in Discord or Autumn Public while you wait!"
+                                "2. Wait for a recruiter to review your application, come chat with us in "
+                                a { href: DISCORD_URL, class: "link-primary underline",
+                                    "Discord"
+                                }
+                                " or the in-game channel Autumn Public while you wait!"
                             }
                             li {
                                 "3. Accept your invitation, most applications are reviewed in less than 24 hours."

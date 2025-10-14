@@ -1,0 +1,27 @@
+use dioxus::prelude::*;
+
+use crate::web::{
+    components::guides::guide::Guide, constant::guide::author::AUTHOR_HYZIRI,
+    model::guide::GuideMeta, Route,
+};
+
+static AUTUMN_NULLSEC_GUIDE_META: GuideMeta = GuideMeta {
+    route: &Route::AutumnNullsecGuide {},
+    name: "Autumn Nullsec Guides",
+    description: "Guides related to the Autumn nullsec experience",
+    title: "Autumn Nullsec Guides",
+    date: "2025-10-10",
+    author: AUTHOR_HYZIRI,
+};
+
+#[component]
+pub fn AutumnNullsecGuide() -> Element {
+    let guide_outline = vec![];
+
+    rsx! {
+        Guide {
+            meta: AUTUMN_NULLSEC_GUIDE_META,
+            outline: guide_outline,
+        }
+    }
+}

@@ -5,8 +5,7 @@ use dioxus_free_icons::Icon;
 use manganis::Asset;
 
 use crate::web::{
-    constant::{APPLICATIONS_URL, DISCORD_URL},
-    Route,
+    components::button::discord::AutumnDiscordButton, constant::app::DISCORD_URL, Route,
 };
 
 #[component]
@@ -41,15 +40,12 @@ pub fn JoinHeader() -> Element {
                 div {
                     ul { class: "hidden md:flex gap-2",
                         li {
-                            a { class: "btn btn-outline", href: DISCORD_URL,
-                                Icon { width: 24, height: 24, icon: FaDiscord }
-                                "Autumn Discord"
-                            }
+                            AutumnDiscordButton { class: "btn-outline" }
                         }
                         li {
-                            a {
+                            Link {
+                                to: Route::AutumnJoinGuide {},
                                 class: "btn btn-primary",
-                                href: APPLICATIONS_URL,
                                 "Begin Your Journey"
                             }
                         }
@@ -71,7 +67,10 @@ pub fn JoinHeader() -> Element {
                                 }
                             }
                             li {
-                                a { href: APPLICATIONS_URL, "Begin Your Journey" }
+                                Link {
+                                    to: Route::AutumnJoinGuide {},
+                                    "Begin Your Journey"
+                                }
                             }
                         }
                     }

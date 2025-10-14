@@ -1,11 +1,8 @@
 use dioxus::prelude::*;
-use dioxus_free_icons::icons::fa_brands_icons::FaDiscord;
-use dioxus_free_icons::Icon;
 use manganis::Asset;
 
 use crate::web::{
-    constant::{BLACK_ROSE_WEBSITE_URL, DISCORD_URL},
-    Route,
+    components::button::discord::AutumnDiscordButton, constant::app::BLACK_ROSE_WEBSITE_URL, Route,
 };
 
 #[component]
@@ -48,15 +45,12 @@ pub fn Hero() -> Element {
                     }
                     ul { class: "flex flex-wrap gap-2 justify-center",
                         li {
-                            a { href: DISCORD_URL, class: "btn px-2 md:px-4",
-                                Icon { width: 24, height: 24, icon: FaDiscord }
-                                "Autumn Discord"
-                            }
+                            AutumnDiscordButton { class: "px-2 md:px-4"}
                         }
                         li {
                             Link {
                                 to: Route::JoinAutumn {  },
-                                class: "btn btn-primary px-2 md:px-4 btn",
+                                class: "btn btn-primary px-2 md:px-4",
                                 "Join Autumn"
                             }
                         }

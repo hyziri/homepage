@@ -1,26 +1,6 @@
-#[derive(PartialEq)]
-pub struct CorpCardData {
-    pub name: &'static str,
-    pub corporation_id: u64,
-    pub location: &'static str,
-    pub cta_text: &'static str,
-}
-
-pub struct FAQEntry {
-    pub question: &'static str,
-    pub answer: &'static str,
-}
-
-// Social Media URLs
-pub const DISCORD_URL: &str = "https://discord.gg/HjaGsBBtFg";
-pub const GITHUB_URL: &str = "https://github.com/autumn-order";
-
-// Websites
-
-pub const BLACK_ROSE_WEBSITE_URL: &str = "https://black-rose.space";
-pub const APPLICATIONS_URL: &str = "https://apply.autumn-order.com";
-
 // Join Page Video
+
+use crate::web::model::join::{CorpCardData, FAQEntry};
 
 pub const FEATURED_VIDEO: &str = "https://www.youtube.com/embed/AdfFnTt2UT0?si=x3rGt9pHRJHZ9g8i";
 
@@ -29,6 +9,13 @@ pub const AUTUMN_ORDER_CORP_INFO: CorpCardData = CorpCardData {
     corporation_id: 98785281,
     location: "Nullsec",
     cta_text: "Begin Your Journey in Nullsec",
+};
+
+pub const AUTUMN_INC_CORP_INFO: CorpCardData = CorpCardData {
+    name: "Autumn Inc.",
+    corporation_id: 98812612,
+    location: "Highsec",
+    cta_text: "Begin Your Journey in Highsec",
 };
 
 pub const FAQ: &[FAQEntry] = &[

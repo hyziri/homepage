@@ -345,6 +345,8 @@ dependencies = [
  "tokio-cron-scheduler",
  "utoipa",
  "utoipa-swagger-ui",
+ "wasm-bindgen",
+ "web-sys",
 ]
 
 [[package]]
