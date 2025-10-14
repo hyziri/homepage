@@ -15,7 +15,7 @@ pub fn GuidesDirectory() -> Element {
             content: "Guides by The Order of Autumn"
         }
         Page {
-            Section { class: "flex flex-col items-center gap-6",
+            Section { class: "flex flex-col items-center gap-6 w-full h-full",
                 h1 { class: "text-4xl font-bold",
                     "Autumn Guides"
                 }

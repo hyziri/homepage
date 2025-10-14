@@ -28,7 +28,7 @@ pub fn AutumnTools() -> Element {
             content: "Tools for EVE Online, by Autumn."
         }
         Page {
-            Section { class: "flex flex-col items-center gap-6",
+            Section { class: "flex flex-col items-center gap-6 w-full h-full",
                 h1 { class: "text-4xl font-bold",
                     "Autumn Tools"
                 }

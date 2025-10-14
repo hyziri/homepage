@@ -1,3 +1,3 @@
 pub mod hero;
 
-pub use hero::Hero;
+pub use hero::HeroSection;
