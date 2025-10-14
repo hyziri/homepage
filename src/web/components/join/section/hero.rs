@@ -7,7 +7,7 @@ use crate::web::components::button::discord::AutumnDiscordButton;
 use crate::web::Route;
 
 #[component]
-pub fn Hero() -> Element {
+pub fn HeroSection() -> Element {
     const AUTUMN_LOGO: Asset = manganis::asset!(
         "/assets/autumn-logo.avif",
         ImageAssetOptions::new()
@@ -19,7 +19,7 @@ pub fn Hero() -> Element {
     );
 
     rsx! {
-        section { class: "flex items-center justify-center bg-gradient-to-br from-orange-950 to-amber-800 h-screen pt-[64px] pb-6",
+        section { class: "w-full h-screen pt-[64px] pb-6 flex items-center justify-center bg-gradient-to-br from-orange-950 to-amber-800",
             div { class: "max-w-[1440px] px-6 w-full h-full flex flex-col items-center",
                 div { class: "md:w-3/4 flex flex-col items-center md:items-start md:self-start gap-4 my-auto",
                     div { class: "flex flex-col text-center md:text-left items-center md:items-start gap-2",

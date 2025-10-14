@@ -5,10 +5,12 @@ use crate::web::components::join::JoinHeader;
 
 use crate::web::components::join::{
     section::{
-        CallToAction, Endgame, FrequentlyAskedQuestions, Hero, LearningCurve, WhatMakesAutumnUnique,
+        CallToActionSection, EndgameSection, FrequentlyAskedQuestionsSection, HeroSection,
+        LearningCurveSection, WhatMakesAutumnUniqueSection,
     },
     JoinFooter,
 };
+use crate::web::components::Page;
 
 #[component]
 pub fn JoinAutumn() -> Element {
@@ -19,12 +21,15 @@ pub fn JoinAutumn() -> Element {
             content: "EVE is complicated, Autumn makes it straightforward. There are many twists and turns in the beginning of an EVE journey, why waste time learning the hard way when you can learn the right way?"
         }
         JoinHeader {}
-        Hero {}
-        Endgame {}
-        LearningCurve {}
-        WhatMakesAutumnUnique {}
-        CallToAction {}
-        FrequentlyAskedQuestions {}
+        // Set pt-0 so we can set it in Hero instead
+        Page { class: "!pt-0",
+            HeroSection {}
+            EndgameSection {}
+            LearningCurveSection {}
+            WhatMakesAutumnUniqueSection {}
+            CallToActionSection {}
+            FrequentlyAskedQuestionsSection {}
+        }
         JoinFooter {}
     }
 }
