@@ -81,7 +81,7 @@ pub fn NullsecHighsecGuideSwitch(subcategory: Signal<AutumnGuideSubcategory>) ->
     rsx! (
         div { class: "dropdown",
             // Button to toggle dropdown
-            button { class: "w-full hover:invert-[0.05]",
+            button { class: "w-full hover:invert-[0.05] cursor-pointer",
                 tabindex: 0,
                 role: "button",
                 if *subcategory.read() == AutumnGuideSubcategory::NULLSEC {
@@ -93,7 +93,7 @@ pub fn NullsecHighsecGuideSwitch(subcategory: Signal<AutumnGuideSubcategory>) ->
             div { class: "dropdown-content left-0 w-full z-50",
                 tabindex: 0,
                 if *subcategory.read() == AutumnGuideSubcategory::NULLSEC {
-                    button { class: "w-full hover:invert-[0.05]",
+                    button { class: "w-full hover:invert-[0.05] cursor-pointer",
                         onclick: move |_| {
                             #[cfg(feature = "web")]
                             blur_active_element();
@@ -105,7 +105,7 @@ pub fn NullsecHighsecGuideSwitch(subcategory: Signal<AutumnGuideSubcategory>) ->
                         HighsecGuideCategoryButton {}
                     }
                 } else {
-                    button { class: "w-full hover:invert-[0.05]",
+                    button { class: "w-full hover:invert-[0.05] cursor-pointer",
                         onclick: move |_| {
                             #[cfg(feature = "web")]
                             blur_active_element();

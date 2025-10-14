@@ -108,7 +108,7 @@ pub fn AutumnGuide() -> Element {
             }
             ul { class: "not-prose flex flex-wrap gap-2 justify-center list-none",
                 li { class: "w-72",
-                    button { class: "hover:invert-[0.05] w-full",
+                    button { class: "hover:invert-[0.05] w-full cursor-pointer",
                         onclick: move |_| {
                             nav.push(Route::AutumnNullsecGuide {});
                             consume_context::<AutumnGuideState>().subcategory.set(AutumnGuideSubcategory::NULLSEC);
@@ -117,7 +117,7 @@ pub fn AutumnGuide() -> Element {
                     }
                 }
                 li { class: "w-72",
-                    button { class: "hover:invert-[0.05] w-full",
+                    button { class: "hover:invert-[0.05] w-full cursor-pointer",
                         onclick: move |_| {
                             nav.push(Route::AutumnHighsecGuide {});
                             consume_context::<AutumnGuideState>().subcategory.set(AutumnGuideSubcategory::HIGHSEC);
